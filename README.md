@@ -13,4 +13,5 @@ and then use it by typing ...
 library("rGUIDANDE")
 ```
 
-For example usage see [Vignette: Phylogeny pipeline](http://htmlpreview.github.io/?https://github.com/FranzKrah/rGUIDANCE/blob/master/vignettes/portals.html)
+For example usage see [Vignette: Phylogeny pipeline](http://htmlpreview.github.io/?https://github.com/FranzKrah/rGUIDANCE/blob/master/vignettes/Phylogeny_pipeline.html)
+
