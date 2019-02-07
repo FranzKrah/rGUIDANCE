@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549472521457.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E837FCBD",
+    "lastKnownWriteTime" : 1549520499,
+    "last_content_update" : 1549520499827,
+    "path" : "~/Documents/R/pkgs/rGUIDANCE/R/scores.R",
+    "project_path" : "R/scores.R",
+    "properties" : {
+        "cursorPosition" : "23,3",
+        "scrollLine" : "13"
+    },
+    "relative_order" : 15,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

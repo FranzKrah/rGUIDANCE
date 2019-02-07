@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549483242279.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "CCF2FCA0",
+    "lastKnownWriteTime" : 1549483284,
+    "last_content_update" : 1549483284487,
+    "path" : "~/Documents/R/pkgs/rGUIDANCE/R/filterMSA.R",
+    "project_path" : "R/filterMSA.R",
+    "properties" : {
+        "cursorPosition" : "0,43",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 13,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

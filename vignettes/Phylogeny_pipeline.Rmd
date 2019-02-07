@@ -1,0 +1,116 @@
+---
+title: "Phylogeny pipeline"
+author: "Franz-Sebastian Krah"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Phylogeny pipeline}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Simple (examplory) pipeline for phylogeny inference integrating MSA confidence scores
+
+## Install rGUIDANCE
+```{r guidance,  echo=TRUE, eval=FALSE}
+## Install rGUIDANCE
+install.packages("devtools")
+devtools::install_github("FranzKrah/rGUIDANCE")
+
+## Load required R packages
+library(ape)
+library(ips)
+library(phytools)
+library(rGUIDANCE)
+```
+
+## 1. Use phylotaR to retrieve sequence clusters 
+```{r phyloraR, echo=TRUE, eval=FALSE}
+library(phylotaR)
+wd <- 'Documents/PhD/proj/low_priority/phylotaR/helvella'
+dir.create(wd)
+ncbi_dr <- "/usr/local/ncbi/blast/bin/"
+txid <- 44624  # Helvella ID
+setup(wd = wd, txid = txid, ncbi_dr = ncbi_dr, v = TRUE)
+parameters_reset(wd = wd, parameters = c('ncps'), values = c(12))
+
+##Cluster selection
+all_clusters <- read_phylota(wd)
+reduced <- drop_by_rank(phylota = all_clusters, rnk = 'species', n = 1)
+
+cids <- all_clusters@cids
+n_taxa <- get_ntaxa(phylota = all_clusters, cid = cids)
+
+# drop all the clusters with fewer than x taxa 
+keep <- cids[n_taxa > 10]
+selected <- drop_clstrs(phylota = all_clusters, cid = keep)
+
+
+# Store first cluster as fasta file
+write_sqs(
+  phylota = reduced,
+  sid = names(get_txids(
+    phylota = reduced, cid = "0", rnk = 'species')),
+  sq_nm = get_tx_slot(
+    phylota = reduced,
+    txid = get_txids(phylota = reduced, cid = "0", rnk = 'species'),
+    slt_nm = 'scnm'),
+  outfile = paste(wd, "cl0.fas", sep = "/")
+) # 28S rRNA
+
+```
+
+## 2. Calculate confidence scores
+```{r score,  echo=TRUE, eval=FALSE}
+## Load sequences for the first sequence cluster
+cl0 <- read.FASTA(paste(wd, "cl0.fas", sep ="/"))
+names(cl0) <- gsub(" ", "_", names(cl0))
+
+## Use GUIDANCE to calculate column score (CS)
+g <- guidance(cl0, ncore = 12)
+msa0 <- g@msa
+sc <- scores(g, "column_raxml", na.rm = FALSE)
+```
+
+
+## 3. Use GUIDANCE column score within phylogeny inference (RAxML)
+```{r raxml,  echo=TRUE, eval=FALSE}
+## [4] Use alignment and CS for phylogeny inference
+tr.w <- raxml(msa0, m = "GTRGAMMA", f = "a", N = 100, p = 1234, x = 1234,
+            exec = "/Applications/standard-RAxML-master/raxmlHPC-PTHREADS-AVX", threads = 12,
+            weights = sc$column_raxml, outgroup = "Helvella_aestivalis")
+## Note: the precompiled RAxML version did not work here
+
+tr <- raxml(msa0, m = "GTRGAMMA", f = "a", N = 100, p = 1234, x = 1234,
+            exec = "/Applications/standard-RAxML-master/raxmlHPC-PTHREADS-AVX", threads = 12,
+            outgroup = "Helvella_aestivalis")
+
+
+```
+
+## 3. Divergence time estimation
+```{r chronos,  echo=TRUE, eval=FALSE}
+tr.w.ult <- chronos(tr.w$bipartitions)
+tr.ult <- chronos(tr$bipartitions)
+```
+
+
+## 4. Phylogeny visualization
+```{r plot,  echo=TRUE, eval=FALSE}
+library(phylogram)
+tr.ult$tip.label <- gsub("Helvella_", "", tr.ult$tip.label)
+tr.w.ult$tip.label <- gsub("Helvella_", "", tr.w.ult$tip.label)
+dnd1 <- as.dendrogram(tr.ult)
+dnd2 <- as.dendrogram(tr.w.ult)
+dndlist <- dendextend::dendlist(ladder(dnd1), ladder(dnd2))
+dendextend::tanglegram(dndlist, fast = TRUE, margin_inner = 8, lwd = 1,
+                       margin_top = 5, columns_width = c(5, 1, 5), cex_main = 1,
+                       cex_main_left = 1.5, cex_main_right = 1.5,
+                       main = "Helvella\n(saddle fungi)",
+                       main_left = paste("No CS \n Sum(BS) = ", 
+                                         sum(as.numeric(tr$bipartitions$node.label), 
+                                             na.rm = TRUE)),
+                       main_right = paste("With CS\nSum(BS) = ", 
+                                          sum(as.numeric(tr.w$bipartitions$node.label), 
+                                              na.rm = TRUE)))
+```

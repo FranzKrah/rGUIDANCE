@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549465135423.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "BEF29623",
+    "lastKnownWriteTime" : 1549527977,
+    "last_content_update" : 1549527977295,
+    "path" : "~/Documents/R/pkgs/rGUIDANCE/R/guidance.R",
+    "project_path" : "R/guidance.R",
+    "properties" : {
+        "cursorPosition" : "43,3",
+        "scrollLine" : "32",
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 22,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

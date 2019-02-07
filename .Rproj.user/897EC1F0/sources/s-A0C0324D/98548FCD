@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549472589316.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "187128347",
+    "id" : "98548FCD",
+    "lastKnownWriteTime" : 1549278285,
+    "last_content_update" : 1549278285,
+    "path" : "~/Documents/R/pkgs/rGUIDANCE/R/RcppExports.R",
+    "project_path" : "R/RcppExports.R",
+    "properties" : {
+    },
+    "relative_order" : 16,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

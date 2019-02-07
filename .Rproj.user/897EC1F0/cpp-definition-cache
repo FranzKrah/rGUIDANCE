@@ -1,0 +1,44 @@
+[
+    {
+        "definitions" : [
+            {
+                "column" : 5,
+                "file" : "/Users/krah/Documents/R/pkgs/rGUIDANCE/src/score_calculation.cpp",
+                "kind" : 6,
+                "line" : 15,
+                "name" : "nChoosek(int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@nChoosek#I#I#"
+            },
+            {
+                "column" : 6,
+                "file" : "/Users/krah/Documents/R/pkgs/rGUIDANCE/src/score_calculation.cpp",
+                "kind" : 6,
+                "line" : 40,
+                "name" : "msa_recode(NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@msa_recode#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#"
+            },
+            {
+                "column" : 15,
+                "file" : "/Users/krah/Documents/R/pkgs/rGUIDANCE/src/score_calculation.cpp",
+                "kind" : 6,
+                "line" : 83,
+                "name" : "res_pair_hit(NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@res_pair_hit#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#"
+            },
+            {
+                "column" : 15,
+                "file" : "/Users/krah/Documents/R/pkgs/rGUIDANCE/src/score_calculation.cpp",
+                "kind" : 6,
+                "line" : 126,
+                "name" : "add_msa(IntegerMatrix, IntegerMatrix, IntegerMatrix, IntegerMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@add_msa#$@N@Rcpp@C@Matrix>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#S0_#S0_#S0_#"
+            }
+        ],
+        "file" : "/Users/krah/Documents/R/pkgs/rGUIDANCE/src/score_calculation.cpp",
+        "file_last_write" : 1522242783
+    }
+]

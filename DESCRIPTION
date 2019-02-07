@@ -1,0 +1,38 @@
+Package: rGUIDANCE
+Type: Package
+Title: Multiple sequence alignment confidence score computation in R
+Version: 1.0
+Date: 2019-02-04
+Authors@R: c(person("Franz-Sebastian", "Krah", email = "f.krah@mailbox.org",
+                  role = c("aut", "cre")),
+                  person("Christoph", "Heibl", email = "christoph.heibl@gmx.net",
+                  role =c("aut")))
+Maintainer: Franz-Sebastian Krah <f.krah@mailbox.org>
+Description: Computation of alignment confidence scores using the GUIDANCE, HoT or GUIDANCE2 algorithms. 
+License: GPL (>= 2)
+Imports: Rcpp (>= 1.0.0), adephylo, ape, doSNOW, foreach, ips, methods, pbmcapply, phangorn, plyr, stringr, useful, knitr
+LinkingTo: Rcpp
+RoxygenNote: 6.1.1
+Suggests: rmarkdown
+VignetteBuilder: knitr
+Encoding: UTF-8
+Collate: 
+    'HoT.R'
+    'HoT_in_GUIDANCE2.R'
+    'RGUIDANCE-package.R'
+    'RcppExports.R'
+    'align_part_set.R'
+    'filterMSA.R'
+    'guidance.R'
+    'guidance2.R'
+    'guidanceAA-class.R'
+    'guidanceAA.R'
+    'guidanceDNA-class.R'
+    'guidanceDNA.R'
+    'guidanceSA.R'
+    'msaBP.R'
+    'msaBP_nj_tree.R'
+    'msa_set_scoreR.R'
+    'partitions.R'
+    'rev_DNA.R'
+    'scores.R'

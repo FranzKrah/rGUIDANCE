@@ -1,0 +1,20 @@
+
+fas <- ape::read.FASTA("inst/extdata/BB30015.fasta")
+
+res <- guidance(sequences =  fas, msa.exec= "/usr/local/bin/mafft")
+res <- guidance2(sequences =  fas, msa.exec= "/usr/local/bin/mafft")
+res <- HoT(sequences =  fas, msa.exec= "/usr/local/bin/mafft")
+
+sc <- scores(res, "column", na.rm = FALSE)
+ceiling(sc$column$score*10)
+
+tr <- raxml(res@msa, f = "d", N = 2, p = 1234, 
+                  exec = exec, args = "-a ", scores = sc$column)
+
+
+library(tabulizer)
+extract_tables
+
+for(i in seq_along(a)){
+  write.FASTA(a[[i]], file ="")
+}
