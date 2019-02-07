@@ -4,12 +4,12 @@
 \alias{filterMSA}
 \title{Filtering of the base MSA using guidance scores}
 \usage{
-filterMSA(guidance, col.cutoff = 0.2, seq.cutoff = 0.1,
+filterMSA(guidanceX, col.cutoff = 0.2, seq.cutoff = 0.1,
   mask.cutoff = 0.5, filter.ends = FALSE, filter.gaps = FALSE,
   column_score = FALSE, flag_a = FALSE, na.coding = 0.5)
 }
 \arguments{
-\item{guidance}{object of class \code{\link{guidance}}}
+\item{guidanceX}{object of class \code{\link{guidance}}}
 
 \item{col.cutoff}{numeric between 0 and 1; removes unreliable columns below
 the cutoff (default: 0.2); ignored if FALSE}

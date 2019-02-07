@@ -4,11 +4,11 @@
 \alias{scores}
 \title{Score Calculation}
 \usage{
-scores(guidance, score = c("alignment", "column", "residue", "sequence",
+scores(guidanceX, score = c("alignment", "column", "residue", "sequence",
   "column_raxml"), na.rm = TRUE)
 }
 \arguments{
-\item{guidance}{object of class \code{\link{guidance}}}
+\item{guidanceX}{object of class \code{\link{guidance}}}
 
 \item{score}{A character string indicating a type of score, currently
 available \code{"column"}, \code{"residue"}, \code{"alignment"},

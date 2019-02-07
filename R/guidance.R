@@ -33,11 +33,11 @@
 #' @examples
 #' \dontrun{
 #' # run GUIDANCE on example data using MAFFT
-#' file <- system.file("extdata", "BB50009.fasta", package = "polenta")
-#' aa_seq <- read.fas(file)
-#' g_res <- guidance(sequences = aa_seq)
-#' scores <- daughter_scores(g_res, score = c("gcsc", "rprsc"))
-#' hist(scores$gcsc$score, xlab = "Column score", main = "GUIDANCE")
+#' fpath <- system.file("extdata", "BB30015.fasta", package="rGUIDANCE") # from BALIBASE
+#' fas <- ips::read.fas(fpath)
+#' g <- guidance(sequences = fas)
+#' scores <- scores(g, score = "column")
+#' plog(scores$column$score, xlab = "Column score", main = "GUIDANCE", type ="l")
 #' }
 #'
 #' @author Franz-Sebastian Krah

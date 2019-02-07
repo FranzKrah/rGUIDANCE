@@ -1,6 +1,6 @@
 #' Filtering of the base MSA using guidance scores
 #'
-#' @param guidance object of class \code{\link{guidance}}
+#' @param guidanceX object of class \code{\link{guidance}}
 #' @param col.cutoff numeric between 0 and 1; removes unreliable columns below
 #'   the cutoff (default: 0.2); ignored if FALSE
 #' @param seq.cutoff numeric between 0 and 1; removes unreliable sequences below
@@ -21,7 +21,7 @@
 #' @author Franz-Sebastian Krah
 #' @export
 
-filterMSA <- function(guidance,
+filterMSA <- function(guidanceX,
                       col.cutoff = 0.2,
                       seq.cutoff = 0.1,
                       mask.cutoff = 0.5,
@@ -31,10 +31,10 @@ filterMSA <- function(guidance,
                       flag_a = FALSE,
                       na.coding = 0.5) {
 
-  base_msa <- guidance@msa
+  base_msa <- guidanceX@msa
 
   if (!mask.cutoff == FALSE) {
-    r_sc <- scores(guidance, score = "residue", na.rm = FALSE)
+    r_sc <- scores(guidanceX, score = "residue", na.rm = FALSE)
 
     if (inherits(base_msa, "AAbin")) {
       base_msa <- as.character(base_msa)
@@ -49,7 +49,7 @@ filterMSA <- function(guidance,
   }
 
   if (!col.cutoff == FALSE) {
-    g_sc <- scores(guidance, score = "column", na.rm = FALSE)
+    g_sc <- scores(guidanceX, score = "column", na.rm = FALSE)
     # base_msa <- as.character(base_msa)
 
     base_msa <- base_msa[, c(which(g_sc$column$score >= col.cutoff), which(is.na(g_sc$column$score)))]
@@ -57,7 +57,7 @@ filterMSA <- function(guidance,
   }
 
   if (!seq.cutoff == FALSE) {
-    s_sc <- scores(guidance, score = "sequence")
+    s_sc <- scores(guidanceX, score = "sequence")
     base_msa <- base_msa[s_sc$sequence$score >= seq.cutoff, ]
   }
 
@@ -75,7 +75,7 @@ filterMSA <- function(guidance,
     base_msa <- base_msa[, keep]
 
     ## 'g_r' replaced by 'guidance' [CH-2017-11-08]  
-    g_sc <- scores(guidance, score = "column", na.rm = FALSE)
+    g_sc <- scores(guidanceX, score = "column", na.rm = FALSE)
     g_sc <- g_sc$column[keep, ]
     g_sc[is.na(g_sc$score), ]$score <- na.coding
   }

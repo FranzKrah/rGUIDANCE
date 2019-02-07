@@ -1,6 +1,6 @@
 #' @title Score Calculation
 #' @description Calculate additional scores based on residue pair score.
-#' @param guidance object of class \code{\link{guidance}}
+#' @param guidanceX object of class \code{\link{guidance}}
 #' @param score A character string indicating a type of score, currently
 #'   available \code{"column"}, \code{"residue"}, \code{"alignment"},
 #'   \code{"sequence"}, \code{"all"}.
@@ -27,12 +27,12 @@
 #' @importFrom utils combn globalVariables
 #' @export
 
-scores <- function(guidance,
+scores <- function(guidanceX,
                    score = c("alignment", "column", "residue", "sequence", "column_raxml"),
                    na.rm = TRUE){
 
-  if (!inherits(guidance, c("guidanceDNA", "guidanceAA"))){
-    stop("rpsc not if class 'guidance'")
+  if (!inherits(guidanceX, c("guidanceDNA", "guidanceAA"))){
+    stop("guidance not of class 'guidance'")
   }
   
   ## declare i to be a global variable; this is necessary because
@@ -41,8 +41,8 @@ scores <- function(guidance,
   ## Does not work [CH 2018-01-23]
   globalVariables('i')
 
-  sc <- guidance@scores
-  base_msa <- guidance@msa
+  sc <- guidanceX@scores
+  base_msa <- guidanceX@msa
 
   if (score == "all")
     score <- c("alignment", "column", "sequence", "residue")
