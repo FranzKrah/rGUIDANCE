@@ -7,13 +7,16 @@ setOldClass("AAbin")
 #' @slot scores A matrix of quality scores.
 #' @slot method A characters string giving the method to derive the quality
 #'   scores.
+#' @slot msa.method A character string giving the alignment method
 #' @seealso \code{"\link[=guidanceDNA-class]{guidanceDNA}"}
 #' @author Christoph Heibl
+#' @noRd
 
 
 setClass("guidanceAA",
   representation = list(
     msa = "AAbin",
     scores = "matrix",
-    method = "character")
+    method = "character", 
+    msa.method = "character")
 )

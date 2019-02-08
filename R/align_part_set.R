@@ -16,7 +16,7 @@
 #' @import ips ape
 #' @importFrom ips mafft
 #' @author Franz-Sebastian Krah
-
+#' @noRd
 
 align_part_set <- function(x, partition_set, msa.exec,
                            method, coopt.sub = "all"){

@@ -7,13 +7,16 @@ setOldClass("DNAbin")
 #' @slot scores A matrix of quality scores.
 #' @slot method A characters string giving the method to derive the quality
 #'   scores.
+#' @slot msa.method A character string giving the alignment method
 #' @seealso \code{"\link[=guidanceAA-class]{guidanceAA}"}
 #' @author Christoph Heibl
+#' @noRd
 
 setClass("guidanceDNA",
          representation = list(
            msa = "DNAbin",
            scores = "matrix",
-           method = "character")
+           method = "character",
+           msa.method = "character")
 )
 

@@ -1,6 +1,6 @@
-#' @title Score Calculation
-#' @description Calculate additional scores based on residue pair score.
-#' @param guidanceX object of class \code{\link{guidance}}
+#' @title Score calculation from guidance objects
+#' @description Calculate scores based on residue pair score inferred by HoT, guidance and guidance2
+#' @param guidanceX object of class, see \code{\link{guidance}}
 #' @param score A character string indicating a type of score, currently
 #'   available \code{"column"}, \code{"residue"}, \code{"alignment"},
 #'   \code{"sequence"}, \code{"all"}.

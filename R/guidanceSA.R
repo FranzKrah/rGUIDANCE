@@ -33,6 +33,7 @@
 #' @import ips
 #' @importFrom utils read.table
 #' @author Franz-Sebastian Krah
+#' @noRd
 
 guidanceSA <- function(seqs, bootstrap, msa.program, program,
                        outorder, msafile, cutoff = 0.93,

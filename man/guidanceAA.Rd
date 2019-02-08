@@ -13,6 +13,8 @@ guidanceAA(msa, scores, method)
 
 \item{method}{A characters string giving the method to derive the quality
 scores.}
+
+\item{msa.method}{A character string giving the alignment method}
 }
 \description{
 Create objects of class

@@ -4,6 +4,7 @@
 #' @param tree A phylogenetic tree of class \code{\link{phylo}}.
 #' @importFrom adephylo treePart
 #' @author Franz-Sebastian Krah
+#' @noRd
 
 partitions <- function(tree){
 

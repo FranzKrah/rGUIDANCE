@@ -39,8 +39,9 @@ Calculates column reliability (and other scors) by comparing
   sequences.
 }
 \references{
-G. Landan and D. Graur. 2008. Local reliability measures from
-  sets of co-optimal multiple sequencesuence alignments. 13:15--24
+Landan and Graur. 2008. Local reliability measures from
+  sets of co-optimal multiple sequence alignments. \emph{Pacific Symposium on
+  Biocomputing} \strong{13}:15--24.
 }
 \seealso{
 \code{\link{msa_set_score}}, \code{\link{guidance}},

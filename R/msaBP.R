@@ -2,6 +2,7 @@
 #' @description Create a bootstrap replicate of multiple sequence alignment.
 #' @param msa An object of class \code{\link{DNAbin}} or \code{\link{AAbin}}.
 #' @author Franz-Sebastian Krah
+#' @noRd
 
 msaBP <- function(msa){
 

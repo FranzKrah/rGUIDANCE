@@ -15,10 +15,7 @@
 #'   all alternative MSAs compared with the base MSA (see \code{msa_set_score}).
 #' @references Felsenstein, J. 1985. Confidence limits on phylogenies: an
 #'   approach using the bootstrap. \emph{Evolution} \strong{39}:783--791.
-#' @references Landan, G. and D. Graur. 2008. Local reliability measures from
-#'   sets of co-optimal multiple sequence alignments. \emph{Pacific Symposium on
-#'   Biocomputing} \strong{13}:15--24.
-#' @references Penn, O., E. Privman, G. Landan, D. Graur, and T. Pupko. 2010. An
+#' @references Penn et al. 2010. An
 #'   alignment confidence score capturing robustness to guide tree uncertainty.
 #'   \emph{Molecular Biology and Evolution} \strong{27}:1759--1767.
 #' @seealso \code{\link{msa_set_score}}, \code{\link{guidance2}}, \code{\link{HoT}}
@@ -34,8 +31,8 @@
 #' \dontrun{
 #' # run GUIDANCE on example data using MAFFT
 #' fpath <- system.file("extdata", "BB30015.fasta", package="rGUIDANCE") # from BALIBASE
-#' fas <- ips::read.fas(fpath)
-#' g <- guidance(sequences = fas)
+#' fas <- ape::read.FASTA(fpath)
+#' g <- guidance(sequences = fas, msa.exec= "/usr/local/bin/mafft")
 #' scores <- scores(g, score = "column")
 #' plog(scores$column$score, xlab = "Column score", main = "GUIDANCE", type ="l")
 #' }
@@ -59,35 +56,15 @@ guidance <- function(sequences,
   
   if (length(labels(sequences)) < 8)
     warning("GUIDANCE is not suitable for alignments of very few sequences.\n
-            As a rule of thumb, use GUIDANCE2 or HoT for < 8 sequences.")
+            As a rule of thumb, use guidance2 or HoT for < 8 sequences.")
   
   if(length(sequences)>199)
-    warning("Alignments > 200 sequences may run into computional problems.")
+    warning("Alignments with more than 200 sequences may run into computional problems.")
   
   ## look up MSA program specified
-  msa.program <- str_extract(msa.exec, "mafft|muscle|clustalo|clustalw2")
+  msa.program <- str_extract(msa.exec, "mafft|muscle|clustalo|clustalw|prank")
   
   ## Check for MSA program
-  if (missing(msa.exec)){
-    os <- Sys.info()
-    os <- os[grep("sysname", names(os))]
-    if (msa.program == "mafft") {
-      msa.exec <- switch(os, Linux = "mafft", Darwin = "mafft",
-                         Windows = "mafft.bat")
-    }
-    if (msa.program == "muscle") {
-      msa.exec <- switch(os, Linux = "muscle", Darwin = "muscle",
-                         Windows = "muscle3.8.31_i86win32.exe")
-    }
-    if (msa.program == "clustalo") {
-      msa.exec <- switch(os, Linux = "clustalo", Darwin = "clustalo",
-                         Windows = "clustalo.exe")
-    }
-    if (msa.program == "clustalw") {
-      msa.exec <- switch(os, Linux = "clustalw", Darwin = "clustalw2",
-                         Windows = "clustalw2.exe")
-    }
-  }
   out <- system(paste(msa.exec, "--v"), ignore.stdout = TRUE, ignore.stderr = TRUE)
   if (out == 127)
     stop("please provide msa.exec path or install MSA program in root \n
@@ -114,7 +91,7 @@ guidance <- function(sequences,
     
     base_msa <- mafft(x = sequences,
                       exec = msa.exec, method = method,
-                      maxiterate = 0, op = 1.53, ep = 0,
+                      
                       thread = -1)
   }
   
@@ -125,7 +102,7 @@ guidance <- function(sequences,
                              MoreArgs = "")
   }
   
-  if (msa.program == "clustalw2") {
+  if (msa.program == "clustalw") {
     
     base_msa <- clustal(x = sequences,
                         exec = msa.exec,
@@ -163,7 +140,7 @@ guidance <- function(sequences,
                            .options.snow = opts,
                            .packages = "phangorn", 
                            .export = 'msaBP_nj_tree') %dopar% {
-                             msaBP_nj_tree(base_msa, outgroup = "auto")
+                             msaBP_nj_tree(msa = base_msa, outgroup = "auto")
                            }
   stopCluster(cl)
   close(pb)
@@ -287,6 +264,6 @@ guidance <- function(sequences,
   if (inherits(sequences, "AAbin")){
     guidanceAA(base_msa, score, "guidance")
   } else {
-    guidanceDNA(base_msa, score, "guidance")
+    guidanceDNA(base_msa, score, "guidance", msa.program)
   }
 }

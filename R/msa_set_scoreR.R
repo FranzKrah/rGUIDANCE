@@ -16,12 +16,7 @@
 #' @author Franz-Sebastian Krah
 #' @export
 
-
 msa_set_score <- function(ref, alt){
-
-  ## functions 'msa_recode', 'res_pair_hit' and 'add_msa'
-  ## are Rcpp functions
-  ## => folder 'src' of the package source code
 
   if (!inherits(ref, c("DNAbin", "AAbin")))
     stop("MSA not of class DNAbin or AAbin (ape)")

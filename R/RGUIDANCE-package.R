@@ -5,4 +5,5 @@
 #'
 #' @docType package
 #' @name rGUIDANCE
+#' @noRd
 NULL

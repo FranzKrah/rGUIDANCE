@@ -37,8 +37,8 @@ Calculates column confidence (and other scors) by comparing
 \dontrun{
 # run GUIDANCE on example data using MAFFT
 fpath <- system.file("extdata", "BB30015.fasta", package="rGUIDANCE") # from BALIBASE
-fas <- ips::read.fas(fpath)
-g <- guidance(sequences = fas)
+fas <- ape::read.FASTA(fpath)
+g <- guidance(sequences = fas, msa.exec= "/usr/local/bin/mafft")
 scores <- scores(g, score = "column")
 plog(scores$column$score, xlab = "Column score", main = "GUIDANCE", type ="l")
 }
@@ -48,11 +48,7 @@ plog(scores$column$score, xlab = "Column score", main = "GUIDANCE", type ="l")
 Felsenstein, J. 1985. Confidence limits on phylogenies: an
   approach using the bootstrap. \emph{Evolution} \strong{39}:783--791.
 
-Landan, G. and D. Graur. 2008. Local reliability measures from
-  sets of co-optimal multiple sequence alignments. \emph{Pacific Symposium on
-  Biocomputing} \strong{13}:15--24.
-
-Penn, O., E. Privman, G. Landan, D. Graur, and T. Pupko. 2010. An
+Penn et al. 2010. An
   alignment confidence score capturing robustness to guide tree uncertainty.
   \emph{Molecular Biology and Evolution} \strong{27}:1759--1767.
 }

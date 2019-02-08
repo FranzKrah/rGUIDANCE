@@ -2,13 +2,13 @@
 % Please edit documentation in R/scores.R
 \name{scores}
 \alias{scores}
-\title{Score Calculation}
+\title{Score calculation from guidance objects}
 \usage{
 scores(guidanceX, score = c("alignment", "column", "residue", "sequence",
   "column_raxml"), na.rm = TRUE)
 }
 \arguments{
-\item{guidanceX}{object of class \code{\link{guidance}}}
+\item{guidanceX}{object of class, see \code{\link{guidance}}}
 
 \item{score}{A character string indicating a type of score, currently
 available \code{"column"}, \code{"residue"}, \code{"alignment"},
@@ -20,7 +20,7 @@ available \code{"column"}, \code{"residue"}, \code{"alignment"},
 data.frame or list of data.frames with scores
 }
 \description{
-Calculate additional scores based on residue pair score.
+Calculate scores based on residue pair score inferred by HoT, guidance and guidance2
 }
 \details{
 The score 'column' is the GUIDANCE column score which is the mean of

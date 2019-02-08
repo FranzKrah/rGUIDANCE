@@ -1,8 +1,8 @@
 Package: rGUIDANCE
 Type: Package
-Title: Multiple sequence alignment confidence score computation in R
+Title: Sequence alignment confidence score computation in R
 Version: 1.0
-Date: 2019-02-04
+Date: 2019-02-08
 Authors@R: c(person("Franz-Sebastian", "Krah", email = "f.krah@mailbox.org",
                   role = c("aut", "cre")),
                   person("Christoph", "Heibl", email = "christoph.heibl@gmx.net",
@@ -10,7 +10,7 @@ Authors@R: c(person("Franz-Sebastian", "Krah", email = "f.krah@mailbox.org",
 Maintainer: Franz-Sebastian Krah <f.krah@mailbox.org>
 Description: Computation of alignment confidence scores using the GUIDANCE, HoT or GUIDANCE2 algorithms. 
 License: GPL (>= 2)
-Imports: Rcpp (>= 1.0.0), adephylo, ape, doSNOW, foreach, ips, methods, pbmcapply, phangorn, plyr, stringr, useful, knitr
+Imports: Rcpp (>= 1.0.0), adephylo, ape, doSNOW, foreach, ips (>= 0.0.11), methods, pbmcapply, phangorn, plyr, stringr, useful, knitr
 LinkingTo: Rcpp
 RoxygenNote: 6.1.1
 Suggests: rmarkdown, phylobase (>= 0.8.6)

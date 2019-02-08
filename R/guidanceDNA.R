@@ -7,6 +7,7 @@
 #' @param scores A matrix of quality scores.
 #' @param method A characters string giving the method to derive the quality
 #'   scores.
+#' @param msa.method A character string giving the alignment method
 #' @include guidanceDNA-class.R
 #' @importFrom methods new
 #' @author Christoph Heibl
@@ -17,7 +18,8 @@
   new("guidanceDNA",
       msa = msa,
       scores = scores,
-      method = method
+      method = method,
+      msa.method = msa.method
   )
 }
 
@@ -25,5 +27,5 @@
 
 setMethod("show", signature = "guidanceDNA",
           function(object){
-            cat(nrow(object@msa), "DNA sequences with", object@method, "scores")
+            cat(nrow(object@msa), "DNA sequences with", object@method, "scores and ", object@msa.method, "MSA program")
           })

@@ -1,0 +1,37 @@
+citHeader("To cite HoT/GUIDANCE/GUIDANCE2 in a publications use:")
+
+citEntry(entry = "Article",
+author = personList(as.person("G. Landan"), as.person("D. Graur")),
+         title = "Local reliability measures from sets of co-optimal multiple sequence alignments",
+         year = 2008,
+         journal = "Pacific Symposium on Biocomputing",
+         volume = "13",
+         pages = "15--24",
+         textVersion = paste("G. Landan and D. Graur", 
+        "Local reliability measures from sets of co-optimal multiple sequence alignments (2008)", 
+        "Pacific Symposium on Biocomputing, 13:15--24.")
+         )
+        
+citEntry(entry = "Article",
+author = personList(as.person("O. Penn"), as.person("E. Privman"), as.person("G. Landan"), as.person("T. Pupko")),
+         title = "An alignment confidence score capturing robustness to guide tree uncertainty",
+         year = 2010.,
+         journal = "Molecular Biology and Evolution",
+         volume = "27",
+         pages = "1759-1767",
+         textVersion = paste("O. Penn, E. Privman, G. Landan and T. Pupko", 
+        "An alignment confidence score capturing robustness to guide tree uncertainty (2010)", 
+        "Molecular Biology and Evolution, 27:1759-1767.")
+         )
+
+citEntry(entry = "Article",
+author = personList(as.person("I. Sela"), as.person("H. Ashkenazy"), as.person("K. Katoh"), as.person("T. Pupko")),
+         title = "GUIDANCE2: accurate detection of unreliable alignment regions accounting for the uncertainty of multiple parameters",
+         year = 2015.,
+         journal = "Nucleic Acids Research",
+         volume = "43",
+         pages = "W7--W14",
+         textVersion = paste("I. Sela, H. Ashkenazy, K. Katoh and T. Pupko", 
+        "GUIDANCE2: accurate detection of unreliable alignment regions accounting for the uncertainty of multiple parameters (2015)", 
+        "Nucleic Acids Research, 43:W7--W14.")
+         )

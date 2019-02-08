@@ -15,6 +15,7 @@
 #' @import foreach
 #' @importFrom ips read.fas
 #' @importFrom utils globalVariables
+#' @noRd
 
 Hot_GUIDANCE2 <- function(msa, n.coopt, 
                           raw_seq, method,

@@ -8,6 +8,7 @@
 #' @importFrom ape compute.brlen nj multi2di root
 #' @importFrom phangorn as.phyDat dist.ml
 #' @author Franz-Sebastian Krah
+#' @noRd
 
 msaBP_nj_tree <- function(msa, outgroup = "auto"){
 
