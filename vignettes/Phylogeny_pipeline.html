@@ -12,7 +12,7 @@
 
 <meta name="author" content="Franz-Sebastian Krah" />
 
-<meta name="date" content="2019-02-06" />
+<meta name="date" content="2019-02-08" />
 
 <title>Phylogeny pipeline</title>
 
@@ -92,12 +92,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Phylogeny pipeline</h1>
 <h4 class="author"><em>Franz-Sebastian Krah</em></h4>
-<h4 class="date"><em>2019-02-06</em></h4>
+<h4 class="date"><em>2019-02-08</em></h4>
 
 
 
-<div id="simple-examplory-pipeline-for-phylogeny-inference-integrating-msa-confidence-scores" class="section level1">
-<h1>Simple (examplory) pipeline for phylogeny inference integrating MSA confidence scores</h1>
+<div id="simple-examplary-pipeline-for-phylogeny-inference-integrating-msa-confidence-scores" class="section level1">
+<h1>Simple (examplary) pipeline for phylogeny inference integrating MSA confidence scores</h1>
 <div id="install-rguidance" class="section level2">
 <h2>Install rGUIDANCE</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Install rGUIDANCE
@@ -175,21 +175,41 @@ tr.ult &lt;-<span class="st"> </span><span class="kw">chronos</span>(tr<span cla
 <div id="phylogeny-visualization" class="section level2">
 <h2>4. Phylogeny visualization</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(phylogram)
-tr.ult<span class="op">$</span>tip.label &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;Helvella_&quot;</span>, <span class="st">&quot;&quot;</span>, tr.ult<span class="op">$</span>tip.label)
-tr.w.ult<span class="op">$</span>tip.label &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;Helvella_&quot;</span>, <span class="st">&quot;&quot;</span>, tr.w.ult<span class="op">$</span>tip.label)
-dnd1 &lt;-<span class="st"> </span><span class="kw">as.dendrogram</span>(tr.ult)
-dnd2 &lt;-<span class="st"> </span><span class="kw">as.dendrogram</span>(tr.w.ult)
-dndlist &lt;-<span class="st"> </span>dendextend<span class="op">::</span><span class="kw">dendlist</span>(<span class="kw">ladder</span>(dnd1), <span class="kw">ladder</span>(dnd2))
-dendextend<span class="op">::</span><span class="kw">tanglegram</span>(dndlist, <span class="dt">fast =</span> <span class="ot">TRUE</span>, <span class="dt">margin_inner =</span> <span class="dv">8</span>, <span class="dt">lwd =</span> <span class="dv">1</span>,
-                       <span class="dt">margin_top =</span> <span class="dv">5</span>, <span class="dt">columns_width =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">5</span>), <span class="dt">cex_main =</span> <span class="dv">1</span>,
-                       <span class="dt">cex_main_left =</span> <span class="fl">1.5</span>, <span class="dt">cex_main_right =</span> <span class="fl">1.5</span>,
-                       <span class="dt">main =</span> <span class="st">&quot;Helvella</span><span class="ch">\n</span><span class="st">(saddle fungi)&quot;</span>,
-                       <span class="dt">main_left =</span> <span class="kw">paste</span>(<span class="st">&quot;No CS </span><span class="ch">\n</span><span class="st"> Sum(BS) = &quot;</span>, 
-                                         <span class="kw">sum</span>(<span class="kw">as.numeric</span>(tr<span class="op">$</span>bipartitions<span class="op">$</span>node.label), 
-                                             <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)),
-                       <span class="dt">main_right =</span> <span class="kw">paste</span>(<span class="st">&quot;With CS</span><span class="ch">\n</span><span class="st">Sum(BS) = &quot;</span>, 
-                                          <span class="kw">sum</span>(<span class="kw">as.numeric</span>(tr.w<span class="op">$</span>bipartitions<span class="op">$</span>node.label), 
-                                              <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</code></pre></div>
+
+cutoff &lt;-<span class="st"> </span><span class="dv">70</span> <span class="co"># threshold of bootstrap value considered &quot;significant&quot;</span>
+
+w &lt;-<span class="st"> </span>tr.w.ult
+u &lt;-<span class="st"> </span>tr.ult
+
+bs_w &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">as.numeric</span>(w<span class="op">$</span>node.label), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+bs_u &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">as.numeric</span>(u<span class="op">$</span>node.label), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+
+w &lt;-<span class="st"> </span><span class="kw">ladderize</span>(<span class="kw">collapseUnsupportedEdges</span>(w, <span class="dt">cutoff =</span> cutoff), <span class="dt">right =</span> <span class="ot">FALSE</span>)
+u &lt;-<span class="st"> </span><span class="kw">ladderize</span>(<span class="kw">collapseUnsupportedEdges</span>(u, <span class="dt">cutoff =</span> cutoff), <span class="dt">right =</span> <span class="ot">FALSE</span>)
+
+res_w &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">Nnode</span>(w)<span class="op">/</span><span class="kw">Ntip</span>(w) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)
+res_u &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">Nnode</span>(u)<span class="op">/</span><span class="kw">Ntip</span>(u) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)
+
+w<span class="op">$</span>tip.label &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;Helvella_&quot;</span>, <span class="st">&quot;&quot;</span>, w<span class="op">$</span>tip.label)
+u<span class="op">$</span>tip.label &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;Helvella_&quot;</span>, <span class="st">&quot;&quot;</span>, u<span class="op">$</span>tip.label)
+
+w &lt;-<span class="st"> </span><span class="kw">as.dendrogram</span>(w)
+u &lt;-<span class="st"> </span><span class="kw">as.dendrogram</span>(u)
+u &lt;-<span class="st"> </span>dendextend<span class="op">::</span><span class="kw">rotate</span>(u, <span class="kw">labels</span>(w))
+dndlist &lt;-<span class="st"> </span>dendextend<span class="op">::</span><span class="kw">dendlist</span>(u, w)
+
+## Tanglegram
+<span class="kw">tanglegram</span>(dndlist, 
+           <span class="dt">fast =</span> <span class="ot">TRUE</span>, 
+           <span class="dt">margin_inner =</span> <span class="dv">8</span>, <span class="dt">lwd =</span> <span class="dv">1</span>,
+           <span class="dt">margin_top =</span> <span class="dv">5</span>,
+           <span class="dt">columns_width =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">5</span>),
+           <span class="dt">cex_main =</span> <span class="dv">1</span>,
+           <span class="dt">cex_main_left =</span> <span class="fl">1.5</span>,
+           <span class="dt">cex_main_right =</span> <span class="fl">1.5</span>,
+           <span class="dt">main =</span> <span class="st">&quot;Helvella</span><span class="ch">\n</span><span class="st">(saddle fungi)&quot;</span>,
+           <span class="dt">main_left =</span> <span class="kw">paste</span>(<span class="st">&quot;No CS </span><span class="ch">\n</span><span class="st"> Sum(BS) = &quot;</span>, bs_u, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, res_u, <span class="st">&quot;% resolved&quot;</span>),
+           <span class="dt">main_right =</span> <span class="kw">paste</span>(<span class="st">&quot;With CS</span><span class="ch">\n</span><span class="st">Sum(BS) = &quot;</span>, bs_w, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, res_w, <span class="st">&quot;% resolved&quot;</span>))</code></pre></div>
 </div>
 </div>
 

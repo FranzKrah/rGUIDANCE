@@ -9,7 +9,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Simple (examplory) pipeline for phylogeny inference integrating MSA confidence scores
+# Simple (examplary) pipeline for phylogeny inference integrating MSA confidence scores
 
 ## Install rGUIDANCE
 ```{r guidance,  echo=TRUE, eval=FALSE}
@@ -98,19 +98,40 @@ tr.ult <- chronos(tr$bipartitions)
 ## 4. Phylogeny visualization
 ```{r plot,  echo=TRUE, eval=FALSE}
 library(phylogram)
-tr.ult$tip.label <- gsub("Helvella_", "", tr.ult$tip.label)
-tr.w.ult$tip.label <- gsub("Helvella_", "", tr.w.ult$tip.label)
-dnd1 <- as.dendrogram(tr.ult)
-dnd2 <- as.dendrogram(tr.w.ult)
-dndlist <- dendextend::dendlist(ladder(dnd1), ladder(dnd2))
-dendextend::tanglegram(dndlist, fast = TRUE, margin_inner = 8, lwd = 1,
-                       margin_top = 5, columns_width = c(5, 1, 5), cex_main = 1,
-                       cex_main_left = 1.5, cex_main_right = 1.5,
-                       main = "Helvella\n(saddle fungi)",
-                       main_left = paste("No CS \n Sum(BS) = ", 
-                                         sum(as.numeric(tr$bipartitions$node.label), 
-                                             na.rm = TRUE)),
-                       main_right = paste("With CS\nSum(BS) = ", 
-                                          sum(as.numeric(tr.w$bipartitions$node.label), 
-                                              na.rm = TRUE)))
+
+cutoff <- 70 # threshold of bootstrap value considered "significant"
+
+w <- tr.w.ult
+u <- tr.ult
+
+bs_w <- sum(as.numeric(w$node.label), na.rm = TRUE)
+bs_u <- sum(as.numeric(u$node.label), na.rm = TRUE)
+
+w <- ladderize(collapseUnsupportedEdges(w, cutoff = cutoff), right = FALSE)
+u <- ladderize(collapseUnsupportedEdges(u, cutoff = cutoff), right = FALSE)
+
+res_w <- round(Nnode(w)/Ntip(w) * 100)
+res_u <- round(Nnode(u)/Ntip(u) * 100)
+
+w$tip.label <- gsub("Helvella_", "", w$tip.label)
+u$tip.label <- gsub("Helvella_", "", u$tip.label)
+
+w <- as.dendrogram(w)
+u <- as.dendrogram(u)
+u <- dendextend::rotate(u, labels(w))
+dndlist <- dendextend::dendlist(u, w)
+
+## Tanglegram
+tanglegram(dndlist, 
+           fast = TRUE, 
+           margin_inner = 8, lwd = 1,
+           margin_top = 5,
+           columns_width = c(5, 1, 5),
+           cex_main = 1,
+           cex_main_left = 1.5,
+           cex_main_right = 1.5,
+           main = "Helvella\n(saddle fungi)",
+           main_left = paste("No CS \n Sum(BS) = ", bs_u, "\n", res_u, "% resolved"),
+           main_right = paste("With CS\nSum(BS) = ", bs_w, "\n", res_w, "% resolved"))
+
 ```
