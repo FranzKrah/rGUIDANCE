@@ -6,7 +6,7 @@
 \usage{
 filterMSA(guidanceX, col.cutoff = 0.2, seq.cutoff = 0.1,
   mask.cutoff = 0.5, filter.ends = FALSE, filter.gaps = FALSE,
-  column_score = FALSE, flag_a = FALSE, na.coding = 0.5)
+  na.coding = 0.5)
 }
 \arguments{
 \item{guidanceX}{object of class \code{\link{guidance}}}
@@ -24,22 +24,29 @@ AA; default: 0.5); ignored if FALSE}
 
 \item{filter.gaps}{logical, if TRUE trim.gabs (ips) is applied to the MSA}
 
-\item{column_score}{logical, if TRUE column score (e.g. for RAxML: flag -a)
-is in the output}
-
-\item{flag_a}{character specifying a path. If path is supplied function
-writes the filtered MSA into a fasta file. Additionally the function
-produces a file with the column score ready for RAxML input (flag -a)}
-
 \item{na.coding}{value with which to replace NAs}
 }
 \value{
-masked MSA of class \code{AAbin} or \code{DNAbin}
+filtered MSA of class \code{AAbin} or \code{DNAbin}
 
-column_score is optional
+if filter.ends or filter.gaps was choosen, the adjusted
 }
 \description{
 Filtering of the base MSA using guidance scores
+}
+\details{
+Please note that we do not recommend filtering MSAs (Tan et al. 2015). Instead the user should use the 
+GUIDANCE column score as individual weights to each column of the alignment to RAxMLvia the –a flag 
+(for a practical example: Krah et al. (2018)). This can be achieved by using the function scores with score = "column_raxml"
+and passing the score as weights to \code{\link{raxml}}. For a detailled example, see Vignette.
+}
+\references{
+Tan et al. (2015). Current methods for automated filtering of
+  multiple sequence alignments frequently worsen single-gene phylogenetic
+  inference. \emph{Systematic biology} \strong{64}:778--791.
+
+Krah et al. (2018). Evolutionary dynamics of host specialization in wood-decay fungi. 
+\emph{BMC Evolutionary Biology} \strong{18}:119-132
 }
 \seealso{
 \code{\link{scores}}

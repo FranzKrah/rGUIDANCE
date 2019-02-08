@@ -27,5 +27,5 @@
 
 setMethod("show", signature = "guidanceAA",
   function(object){
-    cat(nrow(object@msa), "AA sequences with", object@method, "scores and ", object@msa.method, "MSA program")
+    cat(nrow(object@msa), "AA sequences with", object@method, "scores and", " MSA program", object@msa.method)
   })

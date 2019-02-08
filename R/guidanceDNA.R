@@ -27,5 +27,5 @@
 
 setMethod("show", signature = "guidanceDNA",
           function(object){
-            cat(nrow(object@msa), "DNA sequences with", object@method, "scores and ", object@msa.method, "MSA program")
+            cat(nrow(object@msa), "DNA sequences with", object@method, "scores and", " MSA program", object@msa.method)
           })

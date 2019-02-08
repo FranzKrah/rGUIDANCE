@@ -10,7 +10,6 @@ setOldClass("DNAbin")
 #' @slot msa.method A character string giving the alignment method
 #' @seealso \code{"\link[=guidanceAA-class]{guidanceAA}"}
 #' @author Christoph Heibl
-#' @noRd
 
 setClass("guidanceDNA",
          representation = list(

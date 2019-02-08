@@ -17,6 +17,7 @@ Suggests: rmarkdown, phylobase (>= 0.8.6)
 VignetteBuilder: knitr
 Encoding: UTF-8
 Collate: 
+    'Cmatrix.R'
     'HoT.R'
     'HoT_in_GUIDANCE2.R'
     'RGUIDANCE-package.R'
@@ -30,6 +31,7 @@ Collate:
     'guidanceDNA-class.R'
     'guidanceDNA.R'
     'guidanceSA.R'
+    'init_counters.R'
     'msaBP.R'
     'msaBP_nj_tree.R'
     'msa_set_scoreR.R'

@@ -73,12 +73,12 @@ List msa_recode(NumericMatrix msa){
 // this matrix contains all residue pairs in the reference MSA and the information
 // if they are bases (hit = 0) or gabs (-1); the hits are later updated by
 // comparisons with the alternative MSAs (see add_msa)
-// The function 'init_counters' in 'set_msa_score' uses 3D matrices,
+// The function 'init_counters' in 'set_msa_score' (GUIDANCE) uses 3D matrices,
 // which is not straight forewardly implemented in Rcpp, which is why I
 // work with a nxk matrix, with k many columns as the REF MSA and n rows for all
 // residue pairs.
 // This is almost equally fast, however, the subsequent calculation of derived
-// scores is not as handy. These are done in the function 'daughter_scores'.
+// scores is not as handy. These are done in the function 'scores'.
 // [[Rcpp::export]]
 NumericMatrix res_pair_hit(NumericMatrix col2res){
 
