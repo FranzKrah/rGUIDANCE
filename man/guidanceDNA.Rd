@@ -4,7 +4,7 @@
 \alias{guidanceDNA}
 \title{Create Objects of Class "guidanceDNA"}
 \usage{
-guidanceDNA(msa, scores, method)
+guidanceDNA(msa, scores, method, msa.method)
 }
 \arguments{
 \item{msa}{An object of class \code{\link{DNAbin}}.}

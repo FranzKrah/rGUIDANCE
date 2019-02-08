@@ -199,7 +199,7 @@ HoT <- function(sequences, method = "auto",
   ## Return guidance class
   ## -------------------------
   if (inherits(sequences, "AAbin")){
-    guidanceAA(base_msa, score, "HoT")
+    guidanceAA(base_msa, score, "HoT", msa.program)
   } else {
     guidanceDNA(base_msa, score, "HoT", msa.program)
   }

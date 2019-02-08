@@ -262,7 +262,7 @@ guidance <- function(sequences,
   ## Return guidance class
   ## -------------------------
   if (inherits(sequences, "AAbin")){
-    guidanceAA(base_msa, score, "guidance")
+    guidanceAA(base_msa, score, "guidance", msa.program)
   } else {
     guidanceDNA(base_msa, score, "guidance", msa.program)
   }

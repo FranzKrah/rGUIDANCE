@@ -4,7 +4,7 @@
 \alias{guidanceAA}
 \title{Create Objects of Class "guidanceAA"}
 \usage{
-guidanceAA(msa, scores, method)
+guidanceAA(msa, scores, method, msa.method)
 }
 \arguments{
 \item{msa}{An object of class \code{\link{AAbin}}.}

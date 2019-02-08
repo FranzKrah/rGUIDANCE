@@ -13,7 +13,7 @@
 #' @author Christoph Heibl
 #' @export
 
-"guidanceAA" <- function(msa, scores, method){
+"guidanceAA" <- function(msa, scores, method, msa.method){
 
   new("guidanceAA",
     msa = msa,
