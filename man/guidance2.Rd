@@ -21,7 +21,8 @@ MAFFT; default is \code{"auto"}.}
 
 \item{msa.exec}{A character string giving the path to the executable of the
 alignment program (e.g. \code{/usr/local/bin/mafft}); possible programs are
-\code{MAFFT}, \code{MUSCLE}, and \code{ClustalW}.}
+\code{MAFFT}, \code{MUSCLE}, and \code{ClustalW}. 
+For details see \code{\link{clustal}}, \code{\link{mafft}}}
 
 \item{ncore}{An integer specifying the number of cores; default = 1 (i.e.
 serial execution); \code{"auto"} can be used for automated usage of all
@@ -48,6 +49,20 @@ Calculates column confidence (and other scors) by comparing
   between the BP MSAs and a reference MSA is if column residue pairs are
   identically aligned in all alternative MSAs compared with the base MSA (see
   \code{compareMSAs}).
+
+For an example workflow see Vignette
+}
+\examples{
+\dontrun{
+# run GUIDANCE on example data using MAFFT
+fpath <- system.file("extdata", "BB30015.fasta", package="rGUIDANCE") # random example from BALiBASE
+fas <- ape::read.FASTA(fpath)
+g <- guidance2(sequences = fas, msa.exec= "/usr/local/bin/mafft")
+scores <- scores(g, score = "column")
+plot(scores$column$score, xlab = "Site", 
+ylab = "Column score", 
+main = "GUIDANCE2", type ="l")
+}
 }
 \references{
 Felsenstein, J. 1985. Confidence limits on phylogenies: an

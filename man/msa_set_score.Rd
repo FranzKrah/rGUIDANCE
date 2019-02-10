@@ -2,7 +2,7 @@
 % Please edit documentation in R/msa_set_scoreR.R
 \name{msa_set_score}
 \alias{msa_set_score}
-\title{Compare reference MSAs with alternative MSAs}
+\title{Compare reference MSA with alternative MSA(s)}
 \usage{
 msa_set_score(ref, alt)
 }
@@ -24,6 +24,9 @@ residue_pair_score: if one alternative MSA is supplied then the score
 }
 \description{
 MSA reliability scores (Penn et al. 2010)
+}
+\details{
+In principle this can also be done via AlignStat::compare_alignments, but slower.
 }
 \references{
 Penn et al. 2010. An alignment confidence score capturing

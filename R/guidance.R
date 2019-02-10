@@ -4,7 +4,10 @@
 #' @param sequences An object of class \code{\link{DNAbin}} or \code{\link{AAbin}} containing unaligned sequences of DNA or amino acids.
 #' @param bootstrap An integer giving the number of alternative MSAs to be computed.
 #' @param method A character string containing further arguments passed to MAFFT; default is \code{"auto"}.
-#' @param msa.exec A character string giving the path to the executable of the alignment program (e.g. \code{/usr/local/bin/mafft}); possible programs are \code{MAFFT}, \code{MUSCLE}, \code{ClustalO}, and \code{ClustalW}.
+#' @param msa.exec A character string giving the path to the executable of the
+#'   alignment program (e.g. \code{/usr/local/bin/mafft}); possible programs are
+#'   \code{MAFFT}, \code{MUSCLE}, \code{ClustalW}, \code{ClustalO} or \code{PRANK}
+#'   For details see \code{\link{clustal}}, \code{\link{mafft}}, \code{\link{prank}}
 #' @param ncore An integer specifying the number of cores; default = 1 (i.e. serial execution); \code{"auto"} can be used for automated usage of all detected cores.
 #' @param zip.file A character string giving the dir of zip-compressed file to be produced, which contains the  alternative MSAs. If left empty (default), the alternative MSA will not be stored and cannot be assessed by the user.
 #' @return An object of class \code{\linkS4class{guidanceDNA}} or \code{\linkS4class{guidanceAA}}.
@@ -13,6 +16,7 @@
 #'   bootstrap MSAs (Felsenstein 1985). The basic comparison between the BP MSAs
 #'   and a reference MSA is if column residue pairs are identically aligned in
 #'   all alternative MSAs compared with the base MSA (see \code{msa_set_score}).
+#' @details For an example workflow see Vignette
 #' @references Felsenstein, J. 1985. Confidence limits on phylogenies: an
 #'   approach using the bootstrap. \emph{Evolution} \strong{39}:783--791.
 #' @references Penn et al. 2010. An
@@ -30,11 +34,13 @@
 #' @examples
 #' \dontrun{
 #' # run GUIDANCE on example data using MAFFT
-#' fpath <- system.file("extdata", "BB30015.fasta", package="rGUIDANCE") # from BALIBASE
+#' fpath <- system.file("extdata", "BB30015.fasta", package="rGUIDANCE") # random example from BALiBASE
 #' fas <- ape::read.FASTA(fpath)
 #' g <- guidance(sequences = fas, msa.exec= "/usr/local/bin/mafft")
 #' scores <- scores(g, score = "column")
-#' plog(scores$column$score, xlab = "Column score", main = "GUIDANCE", type ="l")
+#' plot(scores$column$score, xlab = "Site", 
+#' ylab = "Column score", 
+#' main = "GUIDANCE", type ="l")
 #' }
 #'
 #' @author Franz-Sebastian Krah
@@ -63,6 +69,8 @@ guidance <- function(sequences,
   
   ## look up MSA program specified
   msa.program <- str_extract(msa.exec, "mafft|muscle|clustalo|clustalw|prank")
+  if(!msa.program %in% c("mafft", "muscle", "clustalw", "lustalo", "prank"))
+    stop("Currently only MAFFT, MUSCLE, ClustalW or ClustalO")
   
   ## Check for MSA program
   out <- system(paste(msa.exec, "--v"), ignore.stdout = TRUE, ignore.stderr = TRUE)

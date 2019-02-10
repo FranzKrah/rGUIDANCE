@@ -1,10 +1,11 @@
-#' @title Compare reference MSAs with alternative MSAs
+#' @title Compare reference MSA with alternative MSA(s)
 #' @description MSA reliability scores (Penn et al. 2010)
 #' @param ref An object of class \code{\link{DNAbin}} or \code{\link{AAbin}}
 #'   containing \strong{aligned} sequences of DNA or amino acids.
 #' @param alt single MSA or list of MSAs or path to alternative files. Single
 #'   MSAs and list members should be of class \code{\link{DNAbin}} or
 #'   \code{\link{AAbin}}.
+#' @details In principle this can also be done via AlignStat::compare_alignments, but slower.
 #' @return matrix containing following scores:
 #' @return residue_pair_score: if one alternative MSA is supplied then the score
 #'   is 1 if a residue pair was identically aligned as in the reference MSA and
@@ -20,7 +21,6 @@ msa_set_score <- function(ref, alt){
 
   if (!inherits(ref, c("DNAbin", "AAbin")))
     stop("MSA not of class DNAbin or AAbin (ape)")
-
 
   gbbin <- function(msa){
     msa <- (msa != "-") * 1
