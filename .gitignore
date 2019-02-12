@@ -7,4 +7,4 @@ src/*.so
 src/*.dll
 dev
 dep
-*.Rproj
+rGUIDANCE.Rproj
