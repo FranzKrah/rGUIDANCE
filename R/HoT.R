@@ -64,12 +64,13 @@ HoT <- function(sequences, method = "auto",
   if (!inherits(sequences, c("DNAbin","AAbin")))
     stop("sequences not of classes DNAbin or AAbin (ape)")
   
-  if(length(sequences)>199)
-    warning("Alignments with more than 200 sequences may run into computional problems.")
+  nseq <- ifelse(is.matrix(sequences), nrow(sequences), length(sequences))
+  if (nseq > 199)
+    warning("alignments with more than 200 sequences may run into computional problems")
   
   ## look up MSA program specified
   msa.program <- str_extract(msa.exec, "mafft|muscle|clustalo|clustalw|prank")
-  if(!msa.program %in% c("mafft", "muscle", "clustalw"))
+  if (!msa.program %in% c("mafft", "muscle", "clustalw"))
     stop("Currently only MAFFT, MUSCLE or ClustalW")
   
   ## Check for MSA program

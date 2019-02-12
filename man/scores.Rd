@@ -2,7 +2,7 @@
 % Please edit documentation in R/scores.R
 \name{scores}
 \alias{scores}
-\title{Score calculation from guidance objects}
+\title{Score Calculation from Guidance Objects}
 \usage{
 scores(guidanceX, score = c("alignment", "column", "residue", "sequence",
   "column_raxml"), na.rm = TRUE, na.raxml = 10, flag_a = FALSE)
@@ -11,22 +11,25 @@ scores(guidanceX, score = c("alignment", "column", "residue", "sequence",
 \item{guidanceX}{object of class, see \code{\link{guidance}}}
 
 \item{score}{A character string indicating a type of score, currently
-available \code{"column"}, \code{"residue"}, \code{"alignment"},
-\code{"sequence"}, \code{"all"} or \code{"column_raxml"}}
+available are \code{"column"}, \code{"residue"}, \code{"alignment"},
+\code{"sequence"}, \code{"all"}, or \code{"column_raxml"}}
 
-\item{na.rm}{Logical, indicating if NA should be removed. If \code{"column_raxml"} is used, then this should be FALSE}
+\item{na.rm}{Logical, indicating if NAs should be removed. If
+\code{"column_raxml"} is used, then this should be FALSE}
 
-\item{na.raxml}{Integer, specifying what should be used if column score is NA, defaul = 10, see details}
+\item{na.raxml}{Integer, specifying what should be used if column score is
+NA, default is 10 (see Details).}
 
 \item{flag_a}{character specifying a path. If path is supplied function
-writes the MSA into a fasta file. Additionally the function
-produces a file with the column score ready for RAxML input (flag -a) outside of R}
+writes the MSA into a fasta file. Additionally the function produces a file
+with the column score ready for RAxML input (flag -a) outside of R}
 }
 \value{
 data.frame or list of data.frames with scores
 }
 \description{
-Calculate scores based on residue pair score inferred by HoT, guidance and guidance2
+Calculate scores based on residue pair score inferred by HoT,
+  guidance and guidance2
 }
 \details{
 The score 'column' is the GUIDANCE column score which is the mean of
@@ -38,19 +41,19 @@ The score 'column' is the GUIDANCE column score which is the mean of
 
 The GUIDANCE column score can be utilized to weight characters in
   RAxML (flag -a). Simple removal of sites from the MSA should be done with
-  cautions (Tan et al. 2015). Using score = "column_raxml" allows to use the output
-  directly for ips::raxml (see Vignette for a detailled example). The column score is 
-  converted to an integer from 0 to 10. NAs are set to 10 per default, the user may choose
-  otherwise.
+  cautions (Tan et al. 2015). Using score = "column_raxml" allows to use the
+  output directly for ips::raxml (see Vignette for a detailed example). The
+  column score is converted to an integer from 0 to 10. NAs are set to 10 per
+  default, but the user may choose otherwise.
 }
 \references{
 Penn et al. (2010). An alignment confidence score capturing
-  robustness to guide tree uncertainty. Molecular Biology and Evolution
-  27:1759--1767.
+  robustness to guide tree uncertainty. \emph{Molecular Biology and
+  Evolution} \strong{27}:1759--1767.
 
 Tan et al. (2015). Current methods for automated filtering of
   multiple sequence alignments frequently worsen single-gene phylogenetic
-  inference. \emph{Systematic biology} \strong{64}:778--791.
+  inference. \emph{Systematic Biology} \strong{64}:778--791.
 }
 \seealso{
 weights in \code{\link{raxml}}

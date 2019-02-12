@@ -84,8 +84,9 @@ guidance2 <- function(sequences,
   if(!msa.program %in% c("mafft", "muscle", "clustalw"))
     stop("Currently only MAFFT, MUSCLE or ClustalW")
   
-  if(length(sequences)>199)
-    warning("Alignments with more than 200 sequences may run into computional problems.")
+  nseq <- ifelse(is.matrix(sequences), nrow(sequences), length(sequences))
+  if (nseq > 199)
+    warning("alignments with more than 200 sequences may run into computional problems")
   
   ## Check for MSA program
   ## ---------------------
@@ -266,11 +267,11 @@ guidance2 <- function(sequences,
   ## Store alternative MSAs in a zip file (optional)
   ## -----------------------------------------------
   if (!missing(zip.file)){
-    for(i in seq_along(alt_msa)){
-      write.FASTA(alt_msa[[i]], file =paste0(zip.file, "alt_msa_", i, ".fas"))
+    for (i in seq_along(alt_msa)){
+      write.FASTA(alt_msa[[i]], file = paste0(zip.file, "alt_msa_", i, ".fas"))
     }
     
-    files <- list.files(zip.file, full.names = T)
+    files <- list.files(zip.file, full.names = TRUE)
     files <- files[grep("alt_msa", files)]
     zip(zipfile = paste0(zip.file, "guidance2_alt_msas_", Sys.Date(), ".zip"), files = files)
     file.remove(files)
