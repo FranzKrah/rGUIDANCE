@@ -11,19 +11,20 @@
 #'   NA, default is 10 (see Details).
 #' @param flag_a character specifying a path. If path is supplied function
 #'   writes the MSA into a fasta file. Additionally the function produces a file
-#'   with the column score ready for RAxML input (flag -a) outside of R
-#' @details The score 'column' is the GUIDANCE column score which is the mean of
-#'   the residue pair residue score across columns. The score 'alignment' is the
-#'   mean across the residue pair residue scores. The score 'sequence' is the
-#'   mean of the residue pair score across rows (sequences). The score 'residue'
-#'   is the mean score across the residue pairs with that residue (residue pair
-#'   score).
+#'   with the column score ready for RAxML input (flag -a) outside of R. The
+#'   argument \code{score} is overridden by \code{flag_a}.
+#' @details The score \code{"column"} is the GUIDANCE column score which is the
+#'   mean of the residue pair residue score across columns. The score
+#'   \code{"alignment"} is the mean across the residue pair residue scores. The
+#'   score \code{"sequence"} is the mean of the residue pair score across rows
+#'   (sequences). The score \code{"residue"} is the mean score across the
+#'   residue pairs with that residue (residue pair score).
 #' @details The GUIDANCE column score can be utilized to weight characters in
 #'   RAxML (flag -a). Simple removal of sites from the MSA should be done with
 #'   cautions (Tan et al. 2015). Using score = "column_raxml" allows to use the
-#'   output directly for ips::raxml (see Vignette for a detailed example). The
-#'   column score is converted to an integer from 0 to 10. NAs are set to 10 per
-#'   default, but the user may choose otherwise.
+#'   output directly for \code{ips::raxml} (see Vignette for a detailed
+#'   example). The column score is converted to an integer from 0 to 10. NAs are
+#'   set to 10 per default, but the user may choose otherwise.
 #' @references Penn et al. (2010). An alignment confidence score capturing
 #'   robustness to guide tree uncertainty. \emph{Molecular Biology and
 #'   Evolution} \strong{27}:1759--1767.
@@ -34,7 +35,7 @@
 #' @return data.frame or list of data.frames with scores
 #' @author Franz-Sebastian Krah
 #' @importFrom foreach foreach %do%
-#' @import parallel
+#' @importFrom parallel mclapply
 #' @importFrom utils combn
 #' @export
 
@@ -45,7 +46,7 @@ scores <- function(guidanceX,
                    flag_a = FALSE){
 
   if (!inherits(guidanceX, c("guidanceDNA", "guidanceAA"))){
-    stop("guidance not of class 'guidance'")
+    stop("guidanceX not of class 'guidance'")
   }
   
   ## declare i to be a global variable; this is necessary because
@@ -53,22 +54,24 @@ scores <- function(guidanceX,
   ## [http://r.789695.n4.nabble.com/R-CMD-check-and-foreach-code-td4687660.html]
   ## Does not work: globalVariables('i') [CH 2018-01-23]
 
-  sc <- guidanceX@scores
+  sc <- guidanceX@scores ## GUIDANCE residue pair score
   base_msa <- guidanceX@msa
   
   if (flag_a)
     score <- "column_raxml"
 
-  if (score == "all")
+  if ("all" %in% score)
     score <- c("alignment", "column", "sequence", "residue")
 
+  ## Calculate overall score
+  ## -----------------------
   if ("alignment" %in% score){
-    ## calculate GUIDANCE score
     alignment <- mean(sc, na.rm = TRUE)
   }
 
+  ## Calculate GUIDANCE CS
+  ## ---------------------
   if ("column" %in% score){
-    ## calculate GUIDANCE score
     column <- colMeans(sc, na.rm = TRUE)
     column <- data.frame(col = 1:length(column), score = column)
     if (na.rm){
@@ -76,8 +79,10 @@ scores <- function(guidanceX,
     }
   }
 
+  ## Calculate GUIDANCE CS for RaxML -a
+  ## ----------------------------------
   if ("column_raxml" %in% score){
-    ## calculate GUIDANCE score
+    
     column <- colMeans(sc, na.rm = TRUE)
     column <- data.frame(col = 1:length(column), score = column)
     if (na.rm){
@@ -87,8 +92,9 @@ scores <- function(guidanceX,
     column_raxml[is.na(column_raxml)] <- na.raxml
   }
   
+  ## Calculate average score per species 
+  ## -----------------------------------
   if ("sequence" %in% score){
-    ## calculate GUIDANCE score
     fac <- apply(combn(nrow(base_msa), 2), 2, paste, collapse = "-")
     fac_list <- foreach(i = 1:nrow(base_msa)) %do% { grep(paste0(i, "\\b"), fac) }
 
@@ -99,8 +105,10 @@ scores <- function(guidanceX,
     sequence <- data.frame(seq = 1:length(seq), score = seq)
   }
 
+  ## Calculate 'GUIDANCE residue score' (p.1762)
+  ## -------------------------------------------
   if ("residue" %in% score){
-    ## Calculate residue pair residue score
+    
     fac <- apply(combn(nrow(base_msa), 2), 2, paste, collapse = "-")
     fac_list <- foreach(i = 1:nrow(base_msa)) %do% { grep(paste0(i, "\\b"), fac) }
 

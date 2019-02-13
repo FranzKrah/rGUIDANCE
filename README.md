@@ -10,7 +10,7 @@ devtools::install_github("FranzKrah/rGUIDANCE")
 and then use it by typing ...
 
 ```r
-library("rGUIDANDE")
+library("rGUIDANCE")
 ```
 
 ## Example usage: Phylogeny pipeline
