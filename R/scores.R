@@ -33,7 +33,7 @@
 #' @seealso weights in \code{\link{raxml}}
 #' @return data.frame or list of data.frames with scores
 #' @author Franz-Sebastian Krah
-#' @import foreach
+#' @importFrom foreach foreach %do%
 #' @import parallel
 #' @importFrom utils combn
 #' @export
@@ -90,7 +90,7 @@ scores <- function(guidanceX,
   if ("sequence" %in% score){
     ## calculate GUIDANCE score
     fac <- apply(combn(nrow(base_msa), 2), 2, paste, collapse = "-")
-    fac_list <- foreach(i = 1:nrow(base_msa)) %do% grep(paste0(i, "\\b"), fac)
+    fac_list <- foreach(i = 1:nrow(base_msa)) %do% { grep(paste0(i, "\\b"), fac) }
 
     sequence <- rowMeans(sc, na.rm = TRUE)
     seq <- foreach(i = 1:length(fac_list), .combine = "c") %do% {
@@ -102,7 +102,7 @@ scores <- function(guidanceX,
   if ("residue" %in% score){
     ## Calculate residue pair residue score
     fac <- apply(combn(nrow(base_msa), 2), 2, paste, collapse = "-")
-    fac_list <- foreach(i = 1:nrow(base_msa)) %do% grep(paste0(i, "\\b"), fac)
+    fac_list <- foreach(i = 1:nrow(base_msa)) %do% { grep(paste0(i, "\\b"), fac) }
 
     residue <- mclapply(fac_list, function(x) {
       colMeans(sc[x, ], na.rm = TRUE)
