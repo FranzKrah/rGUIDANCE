@@ -72,14 +72,18 @@ plot(tr.w.ult)
 ```
 For more detailed and up-to-date examples and tutorials, see the ``rGUIDANCE`` GitHub page and vignettes therein. 
 
-# Conclusions
-With the **R** package ``rGUIDANCE`` we hope to enrich the **R** toolbox for ecological and evolutionary research. ``rGUIDANCE`` provides implementations of well-performing MSA reliability score programs, GUDIANCE, HoT and GUIDANCE2. Alignment column scores can be computed and easily integrated into a phylogeny pipeline as was exemplarily demonstrated. The **R** package further provides further functions such as sum-of-pairs scores from MSA comparisons. These functions facilitate the modular development of further MSA reliability scores. Finally, we hope that more phylogeny-based analyses will integrate alignment uncertainty in the phylogeny inference step and thus decrease bias in ecological and evolutionary studies.
-
+\newpage
 
 # Figures
 ![Accuracy of GUIDANCE scores computed with the original GUIDANCE implementation and rGUIDANCE, demonstrating equally high accuracy. Receiver operating characteristic (ROC) curves for GUIDANCE scores (red), HoT scores (blue) and GUIDANCE2 (green) of aligned residue pairs relative to the BAliBASE benchmark database (@ThompsonLinard2011). For detailed explanation of ROC curves and the BALIBASE benchmark dataset, see (@PennPrivman10). We followed the methods described therein. In short: We applied both implementations to each BAliBASE data set (128 datasets), using the MAFFT alignment program, generating GUIDANCE residue pair scores for each pair of aligned residues in the base MSA. We then used the BAliBASE reference MSAs in order to assess the predictive power of the residue pair scores to identify alignment errors. Each aligned residue pair in the base MSA was marked as correct/incorrect by comparing it with the reference MSA (BALiBASE). A receiver operating characteristic (ROC) analysis (@Fawcett2006) was then applied (R package ROCR @SingSander2005) to evaluate the accuracy of the GUIDANCE confidence measure.](paper_fig1_accuracy.png)
 
 ![The estimated 28S gene tree of Helvella received substantially greater overall bootstrap support and has 39% more internal nodes resolved with a bootstrap of 70 or higher, when alignment uncertainty as represented by the GUIDANCE column score is taken into account (red), compared to the estimated topology when alignment uncertainty is ignored (blue). Photo by F.-S. Krah.](paper_fig2_example.png)
+
+
+\newpage
+
+# Conclusions
+With the **R** package ``rGUIDANCE`` we hope to enrich the **R** toolbox for ecological and evolutionary research. ``rGUIDANCE`` provides implementations of well-performing MSA reliability score programs, GUDIANCE, HoT and GUIDANCE2. Alignment column scores can be computed and easily integrated into a phylogeny pipeline as was exemplarily demonstrated. The **R** package further provides further functions such as sum-of-pairs scores from MSA comparisons. These functions facilitate the modular development of further MSA reliability scores. Finally, we hope that more phylogeny-based analyses will integrate alignment uncertainty in the phylogeny inference step and thus decrease bias in ecological and evolutionary studies.
 
 
 # References
