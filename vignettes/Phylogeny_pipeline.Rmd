@@ -11,6 +11,34 @@ vignette: >
 
 # Simple (examplary) pipeline for phylogeny inference integrating MSA confidence scores
 
+## Dependencies
+
+The R package rGUIDANCE has many dependencies. Some are external of R (R Core Team 2017), some are internal.
+
+### External
+rGUIDANCE uses third-party executables (e.g., RAxML, MAFFT). Following a list with URLs to where these programs can be downloaded. Within the following script only three are needed: MAFFT, RAxML and BLAST (dependency of another R package). For more information please refer to the guidance help page (just type ?guidance).
+
+* MAFFT: https://mafft.cbrc.jp/alignment/software/
+* CLUSTAL: http://www.clustal.org/clustal2/
+* PRANK: http://wasabiapp.org/software/prank/
+* MUSCLE: https://www.ebi.ac.uk/Tools/msa/muscle/
+* RAxML:  https://cme.h-its.org/exelixis/web/software/raxml/index.html
+* BLAST: https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=Download
+
+Functions which utilize any of these programs usually contain the argument "exec" (for executable). exec is the path to where the executable lies on the local computer. The functions in R then parse information towards the program and captures the results back into R. 
+
+If you have trouble where to find executables, please refer to guides such as:
+Windows: https://tiptopsecurity.com/how-to-find-the-executable-file-for-a-program/
+Mac: https://www.alvinpoh.com/how-to-find-the-location-of-an-executable-program-in-the-mac-terminal/
+
+
+### Internal
+rGUIDANCE depends on many R packages. The most important are: Rcpp, ape, ips and foreach. Rcpp allows to out-source heavy computations into C++ code via R (Eddelbuettel and Francois 2011). The score calculations involve many pairwise comparisons between alignments which is slow in R. ape is a basic R package for the "Analyses of Phylogenetics and Evolution" (Paradis, Claude, and Strimmer 2004; Paradis 2012) and was especially used for handling the alternative guide trees. ips hosts interfaces to other software, such as RAxML (ips = Interfaces to Phylogenetic Software). foreach allows easy parallelization of for loops (Microsoft and Weston 2017). 
+
+## Cautionary note
+The below example involves downloading sequences from NCBI GenBank, which means that the sequences downloaded may have changed when you run the script. Therefore we put the sequences (cluster 0; cl0.fas) as datafile in the R package as an example file. We here sketched out the pipeline described in the rGUIDANCE paper. If you only want to see how guidance works on an alignment and downstream analysis then directly jump to point 2 after installing rGUIDANCE and other packages.
+
+
 ## Install rGUIDANCE
 ```{r guidance,  echo=TRUE, eval=FALSE}
 ## Install rGUIDANCE
@@ -24,15 +52,17 @@ library(phytools)
 library(rGUIDANCE)
 ```
 
+
 ## 1. Use phylotaR to retrieve sequence clusters 
 ```{r phyloraR, echo=TRUE, eval=FALSE}
 library(phylotaR)
-wd <- 'Documents/PhD/proj/low_priority/phylotaR/helvella'
+wd <- '[path-to-directory]'
 dir.create(wd)
-ncbi_dr <- "/usr/local/ncbi/blast/bin/"
+ncbi_dr <- "/usr/local/ncbi/blast/bin/" ## path to executable
 txid <- 44624  # Helvella ID
 setup(wd = wd, txid = txid, ncbi_dr = ncbi_dr, v = TRUE)
-parameters_reset(wd = wd, parameters = c('ncps'), values = c(12))
+parameters_reset(wd = wd, parameters = c('ncps'), values = c(1)) # here number of cores could be increased
+run(wd = wd) 
 
 ##Cluster selection
 all_clusters <- read_phylota(wd)
@@ -62,12 +92,23 @@ write_sqs(
 
 ## 2. Calculate confidence scores
 ```{r score,  echo=TRUE, eval=FALSE}
+
 ## Load sequences for the first sequence cluster
-cl0 <- read.FASTA(paste(wd, "cl0.fas", sep ="/"))
+
+## This is a file produced with the above code, however, sequences might change.
+## To keep the code reproducible, we here provide the option to use our pre-compiled file:
+fpath <- system.file("extdata", "cl0.fas", package="rGUIDANCE") # pre-downloaded file
+cl0 <- ape::read.FASTA(fpath)
+
+## If you used the full pipeline:
+## (Caution: might cause trouble downstream with this specific example because of updated GenBank):
+## cl0 <- read.FASTA(paste(wd, "cl0.fas", sep ="/"))
+
 names(cl0) <- gsub(" ", "_", names(cl0))
 
 ## Use GUIDANCE to calculate column score (CS)
-g <- guidance(cl0, ncore = 12)
+## Note: You will need to change the path to where your local MAFFT is
+g <- guidance(cl0, ncore = 12, msa.exec = "/usr/local/bin/mafft")
 msa0 <- g@msa
 sc <- scores(g, "column_raxml", na.rm = FALSE)
 ```
@@ -76,22 +117,24 @@ sc <- scores(g, "column_raxml", na.rm = FALSE)
 ## 3. Use GUIDANCE column score within phylogeny inference (RAxML)
 ```{r raxml,  echo=TRUE, eval=FALSE}
 ## [4] Use alignment and CS for phylogeny inference
-tr.w <- raxml(msa0, m = "GTRGAMMA", f = "a", N = 100, p = 1234, x = 1234,
+
+## Note: You will need to change the path to where your local RAxML is
+
+tr.w <- ips::raxml(msa0, m = "GTRGAMMA", f = "a", N = 100, p = 1234, x = 1234,
             exec = "/Applications/standard-RAxML-master/raxmlHPC-PTHREADS-AVX", threads = 12,
             weights = sc$column_raxml, outgroup = "Helvella_aestivalis")
 ## Note: the precompiled RAxML version did not work here
 
-tr <- raxml(msa0, m = "GTRGAMMA", f = "a", N = 100, p = 1234, x = 1234,
+tr <- ips::raxml(msa0, m = "GTRGAMMA", f = "a", N = 100, p = 1234, x = 1234,
             exec = "/Applications/standard-RAxML-master/raxmlHPC-PTHREADS-AVX", threads = 12,
             outgroup = "Helvella_aestivalis")
-
 
 ```
 
 ## 3. Divergence time estimation
 ```{r chronos,  echo=TRUE, eval=FALSE}
-tr.w.ult <- chronos(tr.w$bipartitions)
-tr.ult <- chronos(tr$bipartitions)
+tr.w.ult <- ape::chronos(tr.w$bipartitions)
+tr.ult <- ape::chronos(tr$bipartitions)
 ```
 
 
@@ -107,8 +150,8 @@ u <- tr.ult
 bs_w <- sum(as.numeric(w$node.label), na.rm = TRUE)
 bs_u <- sum(as.numeric(u$node.label), na.rm = TRUE)
 
-w <- ladderize(collapseUnsupportedEdges(w, cutoff = cutoff), right = FALSE)
-u <- ladderize(collapseUnsupportedEdges(u, cutoff = cutoff), right = FALSE)
+w <- ape::ladderize(ips::collapseUnsupportedEdges(w, cutoff = cutoff), right = FALSE)
+u <- ape::ladderize(ips::collapseUnsupportedEdges(u, cutoff = cutoff), right = FALSE)
 
 res_w <- round(Nnode(w)/Ntip(w) * 100)
 res_u <- round(Nnode(u)/Ntip(u) * 100)
@@ -116,13 +159,13 @@ res_u <- round(Nnode(u)/Ntip(u) * 100)
 w$tip.label <- gsub("Helvella_", "", w$tip.label)
 u$tip.label <- gsub("Helvella_", "", u$tip.label)
 
-w <- as.dendrogram(w)
-u <- as.dendrogram(u)
-u <- dendextend::rotate(u, labels(w))
+w <- phylogram::as.dendrogram(w)
+u <- phylogram::as.dendrogram(u)
+u <- dendextend::rotate(u, labels(w)) # ignore warning
 dndlist <- dendextend::dendlist(u, w)
 
 ## Tanglegram
-tanglegram(dndlist, 
+dendextend::tanglegram(dndlist, 
            fast = TRUE, 
            margin_inner = 8, lwd = 1,
            margin_top = 5,
@@ -135,3 +178,16 @@ tanglegram(dndlist,
            main_right = paste("With CS\nSum(BS) = ", bs_w, "\n", res_w, "% resolved"))
 
 ```
+
+## References
+Dirk Eddelbuettel and Romain Francois (2011). Rcpp: Seamless R and C++ Integration.
+Journal of Statistical Software, 40(8), 1-18. URL http://www.jstatsoft.org/v40/i08/.
+
+Microsoft and Steve Weston (2017). foreach: Provides Foreach Looping Construct for R. R
+package version 1.4.4. https://CRAN.R-project.org/package=foreach
+
+Paradis, Emmanuel. 2012. Analysis of Phylogenetics and Evolution with R. Second Edi. New York: Springer.
+
+Paradis, Emmanuel, Julien Claude, and Korbinian Strimmer. 2004. “APE: analyses of phylogenetics and evolution in R language.” Bioinformatics 20: 289–90. doi:10.1093/bioinformatics/btg412.
+
+R Core Team. 2017. “R: A Language and Environment for Statistical Computing.” Vienna, Austria: R Foundation for Statistical Computing. https://cran.r-project.org/.

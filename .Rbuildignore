@@ -2,3 +2,8 @@
 ^\.Rproj\.user$
 dev
 dep
+paper.md
+paper.bib
+paper_fig1_accuracy.png
+paper_fig2_example.png
+LICENSE.md

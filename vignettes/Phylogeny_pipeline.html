@@ -12,7 +12,7 @@
 
 <meta name="author" content="Franz-Sebastian Krah" />
 
-<meta name="date" content="2019-02-08" />
+<meta name="date" content="2019-04-29" />
 
 <title>Phylogeny pipeline</title>
 
@@ -83,6 +83,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
 
+
+
+
 </head>
 
 <body>
@@ -91,13 +94,39 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">Phylogeny pipeline</h1>
-<h4 class="author"><em>Franz-Sebastian Krah</em></h4>
-<h4 class="date"><em>2019-02-08</em></h4>
+<h4 class="author">Franz-Sebastian Krah</h4>
+<h4 class="date">2019-04-29</h4>
 
 
 
 <div id="simple-examplary-pipeline-for-phylogeny-inference-integrating-msa-confidence-scores" class="section level1">
 <h1>Simple (examplary) pipeline for phylogeny inference integrating MSA confidence scores</h1>
+<div id="dependencies" class="section level2">
+<h2>Dependencies</h2>
+<p>The R package rGUIDANCE has many dependencies. Some are external of R (R Core Team 2017), some are internal.</p>
+<div id="external" class="section level3">
+<h3>External</h3>
+<p>rGUIDANCE uses third-party executables (e.g., RAxML, MAFFT). Following a list with URLs to where these programs can be downloaded. Within the following script only three are needed: MAFFT, RAxML and BLAST (dependency of another R package). For more information please refer to the guidance help page (just type ?guidance).</p>
+<ul>
+<li>MAFFT: <a href="https://mafft.cbrc.jp/alignment/software/" class="uri">https://mafft.cbrc.jp/alignment/software/</a></li>
+<li>CLUSTAL: <a href="http://www.clustal.org/clustal2/" class="uri">http://www.clustal.org/clustal2/</a></li>
+<li>PRANK: <a href="http://wasabiapp.org/software/prank/" class="uri">http://wasabiapp.org/software/prank/</a></li>
+<li>MUSCLE: <a href="https://www.ebi.ac.uk/Tools/msa/muscle/" class="uri">https://www.ebi.ac.uk/Tools/msa/muscle/</a></li>
+<li>RAxML: <a href="https://cme.h-its.org/exelixis/web/software/raxml/index.html" class="uri">https://cme.h-its.org/exelixis/web/software/raxml/index.html</a></li>
+<li>BLAST: <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastDocs&amp;DOC_TYPE=Download" class="uri">https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastDocs&amp;DOC_TYPE=Download</a></li>
+</ul>
+<p>Functions which utilize any of these programs usually contain the argument “exec” (for executable). exec is the path to where the executable lies on the local computer. The functions in R then parse information towards the program and captures the results back into R.</p>
+<p>If you have trouble where to find executables, please refer to guides such as: Windows: <a href="https://tiptopsecurity.com/how-to-find-the-executable-file-for-a-program/" class="uri">https://tiptopsecurity.com/how-to-find-the-executable-file-for-a-program/</a> Mac: <a href="https://www.alvinpoh.com/how-to-find-the-location-of-an-executable-program-in-the-mac-terminal/" class="uri">https://www.alvinpoh.com/how-to-find-the-location-of-an-executable-program-in-the-mac-terminal/</a></p>
+</div>
+<div id="internal" class="section level3">
+<h3>Internal</h3>
+<p>rGUIDANCE depends on many R packages. The most important are: Rcpp, ape, ips and foreach. Rcpp allows to out-source heavy computations into C++ code via R (Eddelbuettel and Francois 2011). The score calculations involve many pairwise comparisons between alignments which is slow in R. ape is a basic R package for the “Analyses of Phylogenetics and Evolution” (Paradis, Claude, and Strimmer 2004; Paradis 2012) and was especially used for handling the alternative guide trees. ips hosts interfaces to other software, such as RAxML (ips = Interfaces to Phylogenetic Software). foreach allows easy parallelization of for loops (Microsoft and Weston 2017).</p>
+</div>
+</div>
+<div id="cautionary-note" class="section level2">
+<h2>Cautionary note</h2>
+<p>The below example involves downloading sequences from NCBI GenBank, which means that the sequences downloaded may have changed when you run the script. Therefore we put the sequences (cluster 0; cl0.fas) as datafile in the R package as an example file. We here sketched out the pipeline described in the rGUIDANCE paper. If you only want to see how guidance works on an alignment and downstream analysis then directly jump to point 2 after installing rGUIDANCE and other packages.</p>
+</div>
 <div id="install-rguidance" class="section level2">
 <h2>Install rGUIDANCE</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Install rGUIDANCE
@@ -113,12 +142,13 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <div id="use-phylotar-to-retrieve-sequence-clusters" class="section level2">
 <h2>1. Use phylotaR to retrieve sequence clusters</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(phylotaR)
-wd &lt;-<span class="st"> 'Documents/PhD/proj/low_priority/phylotaR/helvella'</span>
+wd &lt;-<span class="st"> '[path-to-directory]'</span>
 <span class="kw">dir.create</span>(wd)
-ncbi_dr &lt;-<span class="st"> &quot;/usr/local/ncbi/blast/bin/&quot;</span>
+ncbi_dr &lt;-<span class="st"> &quot;/usr/local/ncbi/blast/bin/&quot;</span> ## path to executable
 txid &lt;-<span class="st"> </span><span class="dv">44624</span>  <span class="co"># Helvella ID</span>
 <span class="kw">setup</span>(<span class="dt">wd =</span> wd, <span class="dt">txid =</span> txid, <span class="dt">ncbi_dr =</span> ncbi_dr, <span class="dt">v =</span> <span class="ot">TRUE</span>)
-<span class="kw">parameters_reset</span>(<span class="dt">wd =</span> wd, <span class="dt">parameters =</span> <span class="kw">c</span>(<span class="st">'ncps'</span>), <span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">12</span>))
+<span class="kw">parameters_reset</span>(<span class="dt">wd =</span> wd, <span class="dt">parameters =</span> <span class="kw">c</span>(<span class="st">'ncps'</span>), <span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">1</span>)) <span class="co"># here number of cores could be increased</span>
+<span class="kw">run</span>(<span class="dt">wd =</span> wd) 
 
 ##Cluster selection
 all_clusters &lt;-<span class="st"> </span><span class="kw">read_phylota</span>(wd)
@@ -147,30 +177,43 @@ selected &lt;-<span class="st"> </span><span class="kw">drop_clstrs</span>(<span
 <div id="calculate-confidence-scores" class="section level2">
 <h2>2. Calculate confidence scores</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Load sequences for the first sequence cluster
-cl0 &lt;-<span class="st"> </span><span class="kw">read.FASTA</span>(<span class="kw">paste</span>(wd, <span class="st">&quot;cl0.fas&quot;</span>, <span class="dt">sep =</span><span class="st">&quot;/&quot;</span>))
+
+## This is a file produced with the above code, however, sequences might change.
+## To keep the code reproducible, we here provide the option to use our pre-compiled file:
+fpath &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;cl0.fas&quot;</span>, <span class="dt">package=</span><span class="st">&quot;rGUIDANCE&quot;</span>) <span class="co"># pre-downloaded file</span>
+cl0 &lt;-<span class="st"> </span>ape<span class="op">::</span><span class="kw">read.FASTA</span>(fpath)
+
+## If you used the full pipeline:
+## (Caution: might cause trouble downstream with this specific example because of updated GenBank):
+## cl0 &lt;- read.FASTA(paste(wd, &quot;cl0.fas&quot;, sep =&quot;/&quot;))
+
 <span class="kw">names</span>(cl0) &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot; &quot;</span>, <span class="st">&quot;_&quot;</span>, <span class="kw">names</span>(cl0))
 
 ## Use GUIDANCE to calculate column score (CS)
-g &lt;-<span class="st"> </span><span class="kw">guidance</span>(cl0, <span class="dt">ncore =</span> <span class="dv">12</span>)
+## Note: You will need to change the path to where your local MAFFT is
+g &lt;-<span class="st"> </span><span class="kw">guidance</span>(cl0, <span class="dt">ncore =</span> <span class="dv">12</span>, <span class="dt">msa.exec =</span> <span class="st">&quot;/usr/local/bin/mafft&quot;</span>)
 msa0 &lt;-<span class="st"> </span>g<span class="op">@</span>msa
 sc &lt;-<span class="st"> </span><span class="kw">scores</span>(g, <span class="st">&quot;column_raxml&quot;</span>, <span class="dt">na.rm =</span> <span class="ot">FALSE</span>)</code></pre></div>
 </div>
 <div id="use-guidance-column-score-within-phylogeny-inference-raxml" class="section level2">
 <h2>3. Use GUIDANCE column score within phylogeny inference (RAxML)</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## [4] Use alignment and CS for phylogeny inference
-tr.w &lt;-<span class="st"> </span><span class="kw">raxml</span>(msa0, <span class="dt">m =</span> <span class="st">&quot;GTRGAMMA&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;a&quot;</span>, <span class="dt">N =</span> <span class="dv">100</span>, <span class="dt">p =</span> <span class="dv">1234</span>, <span class="dt">x =</span> <span class="dv">1234</span>,
+
+## Note: You will need to change the path to where your local RAxML is
+
+tr.w &lt;-<span class="st"> </span>ips<span class="op">::</span><span class="kw">raxml</span>(msa0, <span class="dt">m =</span> <span class="st">&quot;GTRGAMMA&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;a&quot;</span>, <span class="dt">N =</span> <span class="dv">100</span>, <span class="dt">p =</span> <span class="dv">1234</span>, <span class="dt">x =</span> <span class="dv">1234</span>,
             <span class="dt">exec =</span> <span class="st">&quot;/Applications/standard-RAxML-master/raxmlHPC-PTHREADS-AVX&quot;</span>, <span class="dt">threads =</span> <span class="dv">12</span>,
             <span class="dt">weights =</span> sc<span class="op">$</span>column_raxml, <span class="dt">outgroup =</span> <span class="st">&quot;Helvella_aestivalis&quot;</span>)
 ## Note: the precompiled RAxML version did not work here
 
-tr &lt;-<span class="st"> </span><span class="kw">raxml</span>(msa0, <span class="dt">m =</span> <span class="st">&quot;GTRGAMMA&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;a&quot;</span>, <span class="dt">N =</span> <span class="dv">100</span>, <span class="dt">p =</span> <span class="dv">1234</span>, <span class="dt">x =</span> <span class="dv">1234</span>,
+tr &lt;-<span class="st"> </span>ips<span class="op">::</span><span class="kw">raxml</span>(msa0, <span class="dt">m =</span> <span class="st">&quot;GTRGAMMA&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;a&quot;</span>, <span class="dt">N =</span> <span class="dv">100</span>, <span class="dt">p =</span> <span class="dv">1234</span>, <span class="dt">x =</span> <span class="dv">1234</span>,
             <span class="dt">exec =</span> <span class="st">&quot;/Applications/standard-RAxML-master/raxmlHPC-PTHREADS-AVX&quot;</span>, <span class="dt">threads =</span> <span class="dv">12</span>,
             <span class="dt">outgroup =</span> <span class="st">&quot;Helvella_aestivalis&quot;</span>)</code></pre></div>
 </div>
 <div id="divergence-time-estimation" class="section level2">
 <h2>3. Divergence time estimation</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tr.w.ult &lt;-<span class="st"> </span><span class="kw">chronos</span>(tr.w<span class="op">$</span>bipartitions)
-tr.ult &lt;-<span class="st"> </span><span class="kw">chronos</span>(tr<span class="op">$</span>bipartitions)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tr.w.ult &lt;-<span class="st"> </span>ape<span class="op">::</span><span class="kw">chronos</span>(tr.w<span class="op">$</span>bipartitions)
+tr.ult &lt;-<span class="st"> </span>ape<span class="op">::</span><span class="kw">chronos</span>(tr<span class="op">$</span>bipartitions)</code></pre></div>
 </div>
 <div id="phylogeny-visualization" class="section level2">
 <h2>4. Phylogeny visualization</h2>
@@ -184,8 +227,8 @@ u &lt;-<span class="st"> </span>tr.ult
 bs_w &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">as.numeric</span>(w<span class="op">$</span>node.label), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 bs_u &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">as.numeric</span>(u<span class="op">$</span>node.label), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 
-w &lt;-<span class="st"> </span><span class="kw">ladderize</span>(<span class="kw">collapseUnsupportedEdges</span>(w, <span class="dt">cutoff =</span> cutoff), <span class="dt">right =</span> <span class="ot">FALSE</span>)
-u &lt;-<span class="st"> </span><span class="kw">ladderize</span>(<span class="kw">collapseUnsupportedEdges</span>(u, <span class="dt">cutoff =</span> cutoff), <span class="dt">right =</span> <span class="ot">FALSE</span>)
+w &lt;-<span class="st"> </span>ape<span class="op">::</span><span class="kw">ladderize</span>(ips<span class="op">::</span><span class="kw">collapseUnsupportedEdges</span>(w, <span class="dt">cutoff =</span> cutoff), <span class="dt">right =</span> <span class="ot">FALSE</span>)
+u &lt;-<span class="st"> </span>ape<span class="op">::</span><span class="kw">ladderize</span>(ips<span class="op">::</span><span class="kw">collapseUnsupportedEdges</span>(u, <span class="dt">cutoff =</span> cutoff), <span class="dt">right =</span> <span class="ot">FALSE</span>)
 
 res_w &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">Nnode</span>(w)<span class="op">/</span><span class="kw">Ntip</span>(w) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)
 res_u &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">Nnode</span>(u)<span class="op">/</span><span class="kw">Ntip</span>(u) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)
@@ -193,13 +236,13 @@ res_u &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="k
 w<span class="op">$</span>tip.label &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;Helvella_&quot;</span>, <span class="st">&quot;&quot;</span>, w<span class="op">$</span>tip.label)
 u<span class="op">$</span>tip.label &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;Helvella_&quot;</span>, <span class="st">&quot;&quot;</span>, u<span class="op">$</span>tip.label)
 
-w &lt;-<span class="st"> </span><span class="kw">as.dendrogram</span>(w)
-u &lt;-<span class="st"> </span><span class="kw">as.dendrogram</span>(u)
-u &lt;-<span class="st"> </span>dendextend<span class="op">::</span><span class="kw">rotate</span>(u, <span class="kw">labels</span>(w))
+w &lt;-<span class="st"> </span>phylogram<span class="op">::</span><span class="kw">as.dendrogram</span>(w)
+u &lt;-<span class="st"> </span>phylogram<span class="op">::</span><span class="kw">as.dendrogram</span>(u)
+u &lt;-<span class="st"> </span>dendextend<span class="op">::</span><span class="kw">rotate</span>(u, <span class="kw">labels</span>(w)) <span class="co"># ignore warning</span>
 dndlist &lt;-<span class="st"> </span>dendextend<span class="op">::</span><span class="kw">dendlist</span>(u, w)
 
 ## Tanglegram
-<span class="kw">tanglegram</span>(dndlist, 
+dendextend<span class="op">::</span><span class="kw">tanglegram</span>(dndlist, 
            <span class="dt">fast =</span> <span class="ot">TRUE</span>, 
            <span class="dt">margin_inner =</span> <span class="dv">8</span>, <span class="dt">lwd =</span> <span class="dv">1</span>,
            <span class="dt">margin_top =</span> <span class="dv">5</span>,
@@ -210,6 +253,14 @@ dndlist &lt;-<span class="st"> </span>dendextend<span class="op">::</span><span 
            <span class="dt">main =</span> <span class="st">&quot;Helvella</span><span class="ch">\n</span><span class="st">(saddle fungi)&quot;</span>,
            <span class="dt">main_left =</span> <span class="kw">paste</span>(<span class="st">&quot;No CS </span><span class="ch">\n</span><span class="st"> Sum(BS) = &quot;</span>, bs_u, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, res_u, <span class="st">&quot;% resolved&quot;</span>),
            <span class="dt">main_right =</span> <span class="kw">paste</span>(<span class="st">&quot;With CS</span><span class="ch">\n</span><span class="st">Sum(BS) = &quot;</span>, bs_w, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, res_w, <span class="st">&quot;% resolved&quot;</span>))</code></pre></div>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p>Dirk Eddelbuettel and Romain Francois (2011). Rcpp: Seamless R and C++ Integration. Journal of Statistical Software, 40(8), 1-18. URL <a href="http://www.jstatsoft.org/v40/i08/" class="uri">http://www.jstatsoft.org/v40/i08/</a>.</p>
+<p>Microsoft and Steve Weston (2017). foreach: Provides Foreach Looping Construct for R. R package version 1.4.4. <a href="https://CRAN.R-project.org/package=foreach" class="uri">https://CRAN.R-project.org/package=foreach</a></p>
+<p>Paradis, Emmanuel. 2012. Analysis of Phylogenetics and Evolution with R. Second Edi. New York: Springer.</p>
+<p>Paradis, Emmanuel, Julien Claude, and Korbinian Strimmer. 2004. “APE: analyses of phylogenetics and evolution in R language.” Bioinformatics 20: 289–90. <a href="doi:10.1093/bioinformatics/btg412" class="uri">doi:10.1093/bioinformatics/btg412</a>.</p>
+<p>R Core Team. 2017. “R: A Language and Environment for Statistical Computing.” Vienna, Austria: R Foundation for Statistical Computing. <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>.</p>
 </div>
 </div>
 

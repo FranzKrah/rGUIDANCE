@@ -16,6 +16,7 @@ RoxygenNote: 6.1.1
 Suggests: rmarkdown, phylobase (>= 0.8.6)
 VignetteBuilder: knitr
 Encoding: UTF-8
+Remotes: github::heibl/ips
 Collate: 
     'HoT.R'
     'HoT_in_GUIDANCE2.R'
