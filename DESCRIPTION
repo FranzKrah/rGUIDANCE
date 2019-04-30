@@ -1,8 +1,8 @@
 Package: rGUIDANCE
 Type: Package
 Title: Sequence alignment confidence score computation in R
-Version: 1.0.1
-Date: 2019-02-08
+Version: 1.0.6
+Date: 2019-04-30
 Authors@R: c(person("Franz-Sebastian", "Krah", email = "f.krah@mailbox.org",
                   role = c("aut", "cre")),
                   person("Christoph", "Heibl", email = "christoph.heibl@gmx.net",
