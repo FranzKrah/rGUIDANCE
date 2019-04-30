@@ -1,0 +1,31 @@
+{
+    "description": "Multiple sequence alignment reliability scores", 
+    "license": "other-open", 
+    "title": "FranzKrah/rGUIDANCE v1.0", 
+    "version": "v1.0", 
+    "upload_type": "software", 
+    "publication_date": "2019-04-29", 
+    "creators": [
+        {
+            "affiliation": "Technical University of Munich", 
+            "name": "Franz-Sebastian Krah"
+        }, 
+        {
+            "affiliation": "Bavarian Forest National Park", 
+            "name": "Christoph Heibl"
+        }
+    ], 
+    "access_right": "open", 
+    "related_identifiers": [
+        {
+            "scheme": "url", 
+            "identifier": "https://github.com/FranzKrah/rGUIDANCE/tree/v1.0", 
+            "relation": "isSupplementTo"
+        }, 
+        {
+            "scheme": "doi", 
+            "identifier": "10.5281/zenodo.2653905", 
+            "relation": "isVersionOf"
+        }
+    ]
+}
