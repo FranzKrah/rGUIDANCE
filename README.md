@@ -18,3 +18,9 @@ library("rGUIDANCE")
 
 ## Paper
 [![DOI](http://joss.theoj.org/papers/10.21105/joss.01350/status.svg)](https://doi.org/10.21105/joss.01350)
+
+## MAFFT
+https://mafft.cbrc.jp/alignment/software/macosx.html
+
+## GUIDANCE source
+https://github.com/anzaika/guidance
